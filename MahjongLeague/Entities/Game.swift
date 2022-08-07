@@ -1,8 +1,11 @@
 import Foundation
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Game {
+struct Game: Codable, Identifiable {
     
-    let id: Int
-    let playerName: [Player]
-    let scores: [Score]
+    @DocumentID var id: String?
+    var players: [GamePlayer]
+    @ServerTimestamp var createdTime: Timestamp?
+    var userId: String?
 }

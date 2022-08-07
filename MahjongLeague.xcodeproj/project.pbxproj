@@ -13,13 +13,15 @@
 		0497CCA9289DE5E800DA7E2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0497CCA8289DE5E800DA7E2F /* Preview Assets.xcassets */; };
 		0497CCAB289DE5E800DA7E2F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCAA289DE5E800DA7E2F /* Persistence.swift */; };
 		0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCAC289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld */; };
-		0497CCBC289DE7DA00DA7E2F /* MajongLeague.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCBB289DE7DA00DA7E2F /* MajongLeague.swift */; };
 		0497CCBE289DE82500DA7E2F /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCBD289DE82500DA7E2F /* Game.swift */; };
-		0497CCC0289DE85E00DA7E2F /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCBF289DE85E00DA7E2F /* Score.swift */; };
 		0497CCC2289DE87A00DA7E2F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCC1289DE87A00DA7E2F /* Player.swift */; };
 		0497CCC4289F4DED00DA7E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */; };
 		0497CCC7289F4E5200DA7E2F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC6289F4E5200DA7E2F /* FirebaseAuth */; };
 		0497CCC9289F4E5200DA7E2F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC8289F4E5200DA7E2F /* FirebaseFirestoreSwift */; };
+		0497CCCB289F55FB00DA7E2F /* GameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCCA289F55FB00DA7E2F /* GameRepository.swift */; };
+		0497CCCD289F565000DA7E2F /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCCC289F565000DA7E2F /* League.swift */; };
+		0497CCCF289F571700DA7E2F /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCCE289F571700DA7E2F /* Score.swift */; };
+		0497CCD1289F586100DA7E2F /* GamePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCD0289F586100DA7E2F /* GamePlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +32,13 @@
 		0497CCA8289DE5E800DA7E2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0497CCAA289DE5E800DA7E2F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0497CCAD289DE5E800DA7E2F /* MahjongLeague.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MahjongLeague.xcdatamodel; sourceTree = "<group>"; };
-		0497CCBB289DE7DA00DA7E2F /* MajongLeague.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajongLeague.swift; sourceTree = "<group>"; };
 		0497CCBD289DE82500DA7E2F /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		0497CCBF289DE85E00DA7E2F /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		0497CCC1289DE87A00DA7E2F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0497CCCA289F55FB00DA7E2F /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
+		0497CCCC289F565000DA7E2F /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		0497CCCE289F571700DA7E2F /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		0497CCD0289F586100DA7E2F /* GamePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +75,6 @@
 			children = (
 				0497CCB6289DE78D00DA7E2F /* Entities */,
 				0497CCB8289DE79A00DA7E2F /* Repositories */,
-				0497CCB7289DE79300DA7E2F /* UseCases */,
 				0497CCB5289DE78800DA7E2F /* VIewModels */,
 				0497CCB4289DE78000DA7E2F /* Views */,
 				0497CCA1289DE5E700DA7E2F /* MahjongLeagueApp.swift */,
@@ -110,24 +113,19 @@
 		0497CCB6289DE78D00DA7E2F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0497CCBB289DE7DA00DA7E2F /* MajongLeague.swift */,
-				0497CCBD289DE82500DA7E2F /* Game.swift */,
+				0497CCCC289F565000DA7E2F /* League.swift */,
 				0497CCC1289DE87A00DA7E2F /* Player.swift */,
-				0497CCBF289DE85E00DA7E2F /* Score.swift */,
+				0497CCBD289DE82500DA7E2F /* Game.swift */,
+				0497CCCE289F571700DA7E2F /* Score.swift */,
+				0497CCD0289F586100DA7E2F /* GamePlayer.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		0497CCB7289DE79300DA7E2F /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UseCases;
 			sourceTree = "<group>";
 		};
 		0497CCB8289DE79A00DA7E2F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0497CCCA289F55FB00DA7E2F /* GameRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -210,9 +208,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0497CCC0289DE85E00DA7E2F /* Score.swift in Sources */,
-				0497CCBC289DE7DA00DA7E2F /* MajongLeague.swift in Sources */,
+				0497CCCD289F565000DA7E2F /* League.swift in Sources */,
+				0497CCCB289F55FB00DA7E2F /* GameRepository.swift in Sources */,
+				0497CCD1289F586100DA7E2F /* GamePlayer.swift in Sources */,
 				0497CCBE289DE82500DA7E2F /* Game.swift in Sources */,
+				0497CCCF289F571700DA7E2F /* Score.swift in Sources */,
 				0497CCAB289DE5E800DA7E2F /* Persistence.swift in Sources */,
 				0497CCC2289DE87A00DA7E2F /* Player.swift in Sources */,
 				0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */,
