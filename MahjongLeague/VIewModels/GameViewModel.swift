@@ -9,10 +9,10 @@ class GameViewModel: ObservableObject {
     
     init() {
         
-//        gameRepository.$game.map { games in
-//
-//
-//        }
+        gameRepository.$game.map { games in
+
+
+        }
     }
     
     func addGame(game: Game) {
