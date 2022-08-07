@@ -1,8 +1,11 @@
 import Foundation
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Player {
+struct Player: Codable, Identifiable {
     
-    let id: Int
+    @DocumentID var id: String?
     let name: String
-    let participatingLeague: [League]
+    let participatingLeague: [League]?
+    var userId: String?
 }

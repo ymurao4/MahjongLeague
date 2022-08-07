@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     
-    @StateObject var gameVM = GameViewModel()
+//    @StateObject var gameVM = GameViewModel()
     var players: [GamePlayer] = []
     
     init() {
@@ -24,14 +24,15 @@ struct GameView: View {
     
     var body: some View {
         
-        Button("HELLO, WORLD", action: {
-            gameVM.addGame(
-                game: Game(id: "1",
-                           players: players,
-                           createdTime: nil,
-                           userId: nil)
-            )
-        })
+//        Button("HELLO, WORLD", action: {
+//            gameVM.addGame(
+//                game: Game(id: "1",
+//                           players: players,
+//                           createdTime: nil,
+//                           userId: nil)
+//            )
+//        })
+        Text("hello")
     }
 }
 

@@ -15,7 +15,7 @@ struct ContentView: View {
         
         NavigationView {
             
-            GameView()
+            LeagueView()
         }
     }
 }

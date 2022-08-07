@@ -2,12 +2,12 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import FirebaseAuth
 
-class GameRepository {
+class LeagueRepository {
     
     let db = Firestore.firestore()
     let userId = Auth.auth().currentUser?.uid
 
-    @Published var game: [Game] = []
+    @Published var league: [League] = []
     
     init() {
         loadDate()
@@ -15,18 +15,18 @@ class GameRepository {
     
     func loadDate() {
         
-        db.collection("Game")
+        db.collection("League")
             .addSnapshotListener { querySnapshot, error in
                 
                 DispatchQueue.main.async {
                     
                     if let querySnapshot = querySnapshot {
                         
-                        self.game = querySnapshot.documents.compactMap({ document in
+                        self.league = querySnapshot.documents.compactMap({ document in
                             
                             do {
                                 
-                                let x = try document.data(as: Game.self)
+                                let x = try document.data(as: League.self)
                                 return x
                             } catch {
                                 
@@ -39,13 +39,13 @@ class GameRepository {
             }
     }
     
-    func addGame(game: Game) {
+    func addLeague(league: League) {
         
         do {
             
-            var addGame = game
-            addGame.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("Game").addDocument(from: addGame)
+            var addLeague = league
+            addLeague.userId = Auth.auth().currentUser?.uid
+            let _ = try db.collection("League").addDocument(from: addLeague)
         } catch {
             
             fatalError("Unable to encode game: \(error)")
