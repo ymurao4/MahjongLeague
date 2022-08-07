@@ -22,6 +22,7 @@
 		0497CCCD289F565000DA7E2F /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCCC289F565000DA7E2F /* League.swift */; };
 		0497CCCF289F571700DA7E2F /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCCE289F571700DA7E2F /* Score.swift */; };
 		0497CCD1289F586100DA7E2F /* GamePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCD0289F586100DA7E2F /* GamePlayer.swift */; };
+		0497CCD3289F5FA200DA7E2F /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCD2289F5FA200DA7E2F /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		0497CCCC289F565000DA7E2F /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		0497CCCE289F571700DA7E2F /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		0497CCD0289F586100DA7E2F /* GamePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayer.swift; sourceTree = "<group>"; };
+		0497CCD2289F5FA200DA7E2F /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		0497CCB5289DE78800DA7E2F /* VIewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0497CCD2289F5FA200DA7E2F /* GameViewModel.swift */,
 			);
 			path = VIewModels;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				0497CCCD289F565000DA7E2F /* League.swift in Sources */,
 				0497CCCB289F55FB00DA7E2F /* GameRepository.swift in Sources */,
 				0497CCD1289F586100DA7E2F /* GamePlayer.swift in Sources */,
+				0497CCD3289F5FA200DA7E2F /* GameViewModel.swift in Sources */,
 				0497CCBE289DE82500DA7E2F /* Game.swift in Sources */,
 				0497CCCF289F571700DA7E2F /* Score.swift in Sources */,
 				0497CCAB289DE5E800DA7E2F /* Persistence.swift in Sources */,
