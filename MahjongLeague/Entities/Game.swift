@@ -3,6 +3,6 @@ import Foundation
 struct Game {
     
     let id: Int
-    let playerName: [Playner]
+    let playerName: [Player]
     let scores: [Score]
 }
