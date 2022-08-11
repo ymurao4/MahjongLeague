@@ -6,6 +6,13 @@ struct Game: Codable, Identifiable {
     
     @DocumentID var id: String?
     var players: [GamePlayer]
-    @ServerTimestamp var createdTime: Timestamp?
     var userId: String?
+}
+
+struct GamePlayer: Codable, Identifiable {
+    
+    @DocumentID var id: String?
+    let name: String
+    let score: Int
+    let order: Int
 }
