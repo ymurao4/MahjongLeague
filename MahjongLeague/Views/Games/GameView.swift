@@ -10,16 +10,17 @@ import SwiftUI
 struct GameView: View {
     
     @StateObject var gameVM = GameViewModel()
-    @State private var games: Game?
-    @State private var gamePlayers: [GamePlayer] = []
+    
     
     var body: some View {
         
         NavigationView {
             
-            
+            NavigationLink(destination: AddGameView(gameVM: gameVM)) {
+                Text("add game view")
+            }
         }
-        .navigationTitle("Add game")
+        .navigationTitle("List")
     }
 }
 

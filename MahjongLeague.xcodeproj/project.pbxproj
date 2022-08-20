@@ -107,7 +107,7 @@
 		0497CCA0289DE5E700DA7E2F /* MahjongLeague */ = {
 			isa = PBXGroup;
 			children = (
-				0497CCB6289DE78D00DA7E2F /* Entities */,
+				0497CCB6289DE78D00DA7E2F /* Models */,
 				0497CCB8289DE79A00DA7E2F /* Repositories */,
 				0497CCB5289DE78800DA7E2F /* VIewModels */,
 				0497CCB4289DE78000DA7E2F /* Views */,
@@ -148,7 +148,7 @@
 			path = VIewModels;
 			sourceTree = "<group>";
 		};
-		0497CCB6289DE78D00DA7E2F /* Entities */ = {
+		0497CCB6289DE78D00DA7E2F /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				0497CCCC289F565000DA7E2F /* League.swift */,
@@ -156,7 +156,7 @@
 				0497CCBD289DE82500DA7E2F /* Game.swift */,
 				0497CCD0289F586100DA7E2F /* GamePlayer.swift */,
 			);
-			path = Entities;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		0497CCB8289DE79A00DA7E2F /* Repositories */ = {

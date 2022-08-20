@@ -5,14 +5,9 @@ import FirebaseFirestoreSwift
 struct Game: Codable, Identifiable {
     
     @DocumentID var id: String?
-    var players: [GamePlayer]
+    var game: [String: Int]
+    var order: [String: Int]
+    var players: [Player]
     var userId: String?
 }
 
-struct GamePlayer: Codable, Identifiable {
-    
-    @DocumentID var id: String?
-    let name: String
-    let score: Int
-    let order: Int
-}
