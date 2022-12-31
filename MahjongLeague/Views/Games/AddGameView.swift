@@ -21,19 +21,17 @@ struct AddGameView: View {
             Form {
                 
                 TextField("Input player name", text: $playerNameTextField)
-                
-                Button {
-                    self.players.append(Player(id: String(num), name: playerNameTextField, participatingLeague: nil))
-                    playerNameTextField = ""
-                    num += 1
-                } label: {
-                    Text("add text")
-                }
             }
             
             List(players, id: \.id) { player in
                 Text(player.name)
             }
         }
+    }
+}
+
+struct AddGameView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddGameView(gameVM: GameViewModel())
     }
 }

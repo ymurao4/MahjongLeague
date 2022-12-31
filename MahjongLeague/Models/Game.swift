@@ -3,11 +3,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Game: Codable, Identifiable {
-    
     @DocumentID var id: String?
-    var game: [String: Int]
-    var order: [String: Int]
-    var players: [Player]
+    @ServerTimestamp var createdTime: Timestamp?
+    var result: Result
+    var isHalfround: Bool
     var userId: String?
 }
 

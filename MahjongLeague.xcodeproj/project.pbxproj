@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		048D496728A4C40400A1C6CC /* AddLeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D496628A4C40400A1C6CC /* AddLeagueView.swift */; };
 		048D496A28A4C95C00A1C6CC /* AddGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D496928A4C95C00A1C6CC /* AddGameView.swift */; };
+		04948E19295FC67100A364F7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948E18295FC67100A364F7 /* Result.swift */; };
 		0497CCA2289DE5E700DA7E2F /* MahjongLeagueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCA1289DE5E700DA7E2F /* MahjongLeagueApp.swift */; };
 		0497CCA4289DE5E700DA7E2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCA3289DE5E700DA7E2F /* ContentView.swift */; };
 		0497CCA6289DE5E800DA7E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0497CCA5289DE5E800DA7E2F /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		048D496628A4C40400A1C6CC /* AddLeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLeagueView.swift; sourceTree = "<group>"; };
 		048D496928A4C95C00A1C6CC /* AddGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameView.swift; sourceTree = "<group>"; };
+		04948E18295FC67100A364F7 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		0497CC9E289DE5E700DA7E2F /* MahjongLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MahjongLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0497CCA1289DE5E700DA7E2F /* MahjongLeagueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MahjongLeagueApp.swift; sourceTree = "<group>"; };
 		0497CCA3289DE5E700DA7E2F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,9 +153,10 @@
 		0497CCB6289DE78D00DA7E2F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0497CCCC289F565000DA7E2F /* League.swift */,
 				0497CCC1289DE87A00DA7E2F /* Player.swift */,
 				0497CCBD289DE82500DA7E2F /* Game.swift */,
+				04948E18295FC67100A364F7 /* Result.swift */,
+				0497CCCC289F565000DA7E2F /* League.swift */,
 				0497CCD0289F586100DA7E2F /* GamePlayer.swift */,
 			);
 			path = Models;
@@ -266,6 +269,7 @@
 			files = (
 				0497CCCD289F565000DA7E2F /* League.swift in Sources */,
 				0497CCCB289F55FB00DA7E2F /* GameRepository.swift in Sources */,
+				04948E19295FC67100A364F7 /* Result.swift in Sources */,
 				0497CCD1289F586100DA7E2F /* GamePlayer.swift in Sources */,
 				0497CCDF289FA5F900DA7E2F /* LeagueCellViewModel.swift in Sources */,
 				0497CCD3289F5FA200DA7E2F /* GameViewModel.swift in Sources */,
@@ -418,6 +422,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -447,6 +452,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

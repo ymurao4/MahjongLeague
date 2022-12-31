@@ -2,8 +2,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Player: Codable, Identifiable {
+struct Result: Codable, Identifiable {
     @DocumentID var id: String?
-    let name: String
-    var userId: String?
+    var results: [String: String]
 }

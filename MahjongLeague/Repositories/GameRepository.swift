@@ -15,7 +15,7 @@ class GameRepository {
     
     func loadDate() {
         
-        db.collection("Game")
+        db.collection("Player")
             .addSnapshotListener { querySnapshot, error in
                 
                 DispatchQueue.main.async {
@@ -40,15 +40,22 @@ class GameRepository {
     }
     
     func addGame(game: Game) {
-        
         do {
-            
-            var addGame = game
-            addGame.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("Game").addDocument(from: addGame)
+            var addedGame = game
+            addedGame.userId = Auth.auth().currentUser?.uid
+            let _ = try db.collection("games").addDocument(from: addedGame)
         } catch {
-            
-            fatalError("Unable to encode game: \(error)")
+            fatalError()
+        }
+    }
+    
+    func addPlayer(player: Player) {
+        do {
+            var addedPlayer = player
+            addedPlayer.userId = Auth.auth().currentUser?.uid
+            let _ = try db.collection("players").addDocument(from: addedPlayer)
+        } catch {
+            fatalError()
         }
     }
 }
