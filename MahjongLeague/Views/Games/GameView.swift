@@ -1,41 +1,80 @@
-//
-//  GameView.swift
-//  MahjongLeague
-//
-//  Created by 村尾慶伸 on 2022/08/07.
-//
-
 import SwiftUI
 
 struct GameView: View {
     
-    @StateObject private var viewModel = GameViewModel()
-    @State private var gamePlayers: [[String]] = [["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]
-    @State private var isHalfRound: Bool = true
-
-    let result: Result = .init(results: ["村尾": "33300", "北村": "24800", "寺坂": "26500","一柳": "15400"])
+    @StateObject private var gameViewModel = GameViewModel()
+    @StateObject private var playerViewModel = PlayerViewModel()
+    @State private var isShowAddPlayerView: Bool = false
+    @State private var isShowAddGameView: Bool = false
     
     var body: some View {
-        List {
-            Toggle("半荘", isOn: $isHalfRound)
-            ForEach(0..<4, id: \.self) { i in
-                AddGameCell(name: $gamePlayers[i][0], score: $gamePlayers[i][1])
+        VStack(spacing: 16) {
+            List {
+                ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
+                    VStack {
+                        HStack {
+                            Text(gameCellViewModel.date)
+                                .font(.callout)
+                            Divider()
+                            VStack {
+                                HStack {
+                                    HStack {
+                                        Text(gameCellViewModel.game.result.results[0].player.name)
+                                        Text(gameCellViewModel.game.result.results[0].score)
+                                    }
+                                    HStack {
+                                        Text(gameCellViewModel.game.result.results[1].player.name)
+                                        Text(gameCellViewModel.game.result.results[1].score)
+                                    }
+                                }
+                                HStack {
+                                    HStack {
+                                        Text(gameCellViewModel.game.result.results[3].player.name)
+                                        Text(gameCellViewModel.game.result.results[3].score)
+                                    }
+                                    HStack {
+                                        Text(gameCellViewModel.game.result.results[4].player.name)
+                                        Text(gameCellViewModel.game.result.results[4].score)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Button {
+                isShowAddPlayerView.toggle()
+            } label: {
+                Text("Playerを追加")
+            }
+            Button {
+                isShowAddGameView.toggle()
+            } label: {
+                Text("Gameを追加")
             }
         }
         .navigationTitle("結果を入力")
-    }
-    
-    struct AddGameCell: View {
-        @Binding var name: String
-        @Binding var score: String
-        var body: some View {
-            HStack {
-                TextField("名前", text: $name)
-                Divider()
-                TextField("スコア", text: $score)
-            }
+        .sheet(isPresented: $isShowAddPlayerView) {
+            AddPlayerView(viewModel: playerViewModel)
+        }
+        .sheet(isPresented: $isShowAddGameView) {
+            AddGameView(gameViewModel: gameViewModel, players: playerViewModel.playerCellViewModels)
         }
     }
+
+//    struct GameResultView: View {
+//
+//        var body: some View {
+//            VStack {
+//                HStack {
+//                    Text(gameCellViewModel.)
+//                    VStack {
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 struct GameView_Previews: PreviewProvider {

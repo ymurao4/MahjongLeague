@@ -9,11 +9,8 @@ class GameViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-
         repository.$game.map { games in
-
             games.map { game in
-                
                 return GameCellViewModel(game: game)
             }
         }
@@ -23,9 +20,5 @@ class GameViewModel: ObservableObject {
 
     func addGame(game: Game) {
         repository.addGame(game: game)
-    }
-    
-    func addPlayer(player: Player) {
-        repository.addPlayer(player: player)
     }
 }

@@ -6,7 +6,7 @@ struct Game: Codable, Identifiable {
     @DocumentID var id: String?
     @ServerTimestamp var createdTime: Timestamp?
     var result: Result
-    var isHalfround: Bool
+    var isHalfRound: Bool
     var userId: String?
 }
 
