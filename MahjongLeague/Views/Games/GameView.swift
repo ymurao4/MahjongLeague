@@ -8,33 +8,25 @@ struct GameView: View {
     @State private var isShowAddGameView: Bool = false
     
     var body: some View {
-        VStack(spacing: 16) {
-            List {
-                ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
-                    VStack {
-                        HStack {
-                            Text(gameCellViewModel.date)
-                                .font(.callout)
-                            Divider()
-                            VStack {
-                                HStack {
+        ZStack(alignment: .bottomTrailing) {
+            VStack(spacing: 16) {
+                List {
+                    ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(gameCellViewModel.date)
+                                    .font(.caption)
+                                Divider()
+                                VStack(alignment: .leading) {
                                     HStack {
-                                        Text(gameCellViewModel.game.result.results[0].player.name)
-                                        Text(gameCellViewModel.game.result.results[0].score)
+                                        GameResultView(name: gameCellViewModel.game.result.results[0].player.name, score: gameCellViewModel.game.result.results[0].score)
+                                        Spacer(minLength: 0)
+                                        GameResultView(name: gameCellViewModel.game.result.results[1].player.name, score: gameCellViewModel.game.result.results[1].score)
                                     }
                                     HStack {
-                                        Text(gameCellViewModel.game.result.results[1].player.name)
-                                        Text(gameCellViewModel.game.result.results[1].score)
-                                    }
-                                }
-                                HStack {
-                                    HStack {
-                                        Text(gameCellViewModel.game.result.results[3].player.name)
-                                        Text(gameCellViewModel.game.result.results[3].score)
-                                    }
-                                    HStack {
-                                        Text(gameCellViewModel.game.result.results[4].player.name)
-                                        Text(gameCellViewModel.game.result.results[4].score)
+                                        GameResultView(name: gameCellViewModel.game.result.results[2].player.name, score: gameCellViewModel.game.result.results[2].score)
+                                        Spacer(minLength: 0)
+                                        GameResultView(name: gameCellViewModel.game.result.results[3].player.name, score: gameCellViewModel.game.result.results[3].score)
                                     }
                                 }
                             }
@@ -43,17 +35,20 @@ struct GameView: View {
                 }
             }
             Button {
-                isShowAddPlayerView.toggle()
-            } label: {
-                Text("Playerを追加")
-            }
-            Button {
                 isShowAddGameView.toggle()
             } label: {
-                Text("Gameを追加")
+                Image(systemName: "plus")
+                    .padding()
+                    .font(.title2)
+                    .foregroundColor(.white)
             }
+            .frame(width: 60, height: 60)
+            .background(Color.primary)
+            .cornerRadius(30)
+            .shadow(color: .gray, radius: 3, x: 3, y: 3)
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
         }
-        .navigationTitle("結果を入力")
+        .navigationTitle("麻雀")
         .sheet(isPresented: $isShowAddPlayerView) {
             AddPlayerView(viewModel: playerViewModel)
         }
@@ -62,19 +57,18 @@ struct GameView: View {
         }
     }
 
-//    struct GameResultView: View {
-//
-//        var body: some View {
-//            VStack {
-//                HStack {
-//                    Text(gameCellViewModel.)
-//                    VStack {
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
+    struct GameResultView: View {
+        let name: String
+        let score: String
+
+        var body: some View {
+            HStack {
+                Text(name)
+                Text(score)
+                    .font(.subheadline)
+            }
+        }
+    }
 }
 
 struct GameView_Previews: PreviewProvider {
