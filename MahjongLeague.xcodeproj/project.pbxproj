@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		045D12E029625E8C00BDEA73 /* AnalysysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D12DF29625E8C00BDEA73 /* AnalysysView.swift */; };
 		048D496728A4C40400A1C6CC /* AddLeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D496628A4C40400A1C6CC /* AddLeagueView.swift */; };
 		048D496A28A4C95C00A1C6CC /* AddGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D496928A4C95C00A1C6CC /* AddGameView.swift */; };
 		04948E19295FC67100A364F7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948E18295FC67100A364F7 /* Result.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		045D12DF29625E8C00BDEA73 /* AnalysysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysysView.swift; sourceTree = "<group>"; };
 		048D496628A4C40400A1C6CC /* AddLeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLeagueView.swift; sourceTree = "<group>"; };
 		048D496928A4C95C00A1C6CC /* AddGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameView.swift; sourceTree = "<group>"; };
 		04948E18295FC67100A364F7 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -84,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		045D12E129625E9000BDEA73 /* Analysys */ = {
+			isa = PBXGroup;
+			children = (
+				045D12DF29625E8C00BDEA73 /* AnalysysView.swift */,
+			);
+			path = Analysys;
+			sourceTree = "<group>";
+		};
 		048D496528A4C3D300A1C6CC /* Leagues */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +161,7 @@
 				5D2E21F72960492A00D96811 /* PopUpView.swift */,
 				048D496528A4C3D300A1C6CC /* Leagues */,
 				5D2E21EC296005E500D96811 /* Player */,
+				045D12E129625E9000BDEA73 /* Analysys */,
 				048D496828A4C94D00A1C6CC /* Games */,
 			);
 			path = Views;
@@ -333,6 +344,7 @@
 				0497CCD5289F867E00DA7E2F /* GameView.swift in Sources */,
 				5D2E21F32960073200D96811 /* PlayerCellViewModel.swift in Sources */,
 				0497CCD7289F88D100DA7E2F /* GameCellViewModel.swift in Sources */,
+				045D12E029625E8C00BDEA73 /* AnalysysView.swift in Sources */,
 				0497CCA2289DE5E700DA7E2F /* MahjongLeagueApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

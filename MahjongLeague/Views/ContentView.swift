@@ -2,35 +2,52 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
+    init() {
+        UITabBar.appearance().backgroundColor = .white
+    }
+    
     var body: some View {
-        
-        NavigationStack {
-            TabView {
-                GameView()
-                    .tabItem {
-                        Image("mahjong")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                        Text("記録")
-                            .foregroundColor(.primary)
-                    }
-                GameView()
-                    .tabItem {
-                        Text("分析")
-                            .foregroundColor(.primary)
-                        Image("mahjong")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                    }
-            }
+        TabView {
+            GameView()
+                .tabItem {
+                    Text("記録")
+                    Image(systemName: "pencil")
+                }
+            Text("hoge")
+                .tabItem {
+                    Text("分析")
+                    Image(systemName: "doc.text")
+                }
         }
-        .navigationTitle("麻雀")
+        .tint(.primary)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
+
+struct ScaledImage: View {
+    let name: String
+    let size: CGSize
+    
+    var body: Image {
+        let uiImage = resizedImage(named: self.name, for: self.size) ?? UIImage()
+        
+        return Image(uiImage: uiImage.withRenderingMode(.alwaysOriginal))
+    }
+    
+    func resizedImage(named: String, for size: CGSize) -> UIImage? {
+        guard let image = UIImage(named: named) else {
+            return nil
+        }
+        
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { (context) in
+            image.draw(in: CGRect(origin: .zero, size: size))
+        }
     }
 }

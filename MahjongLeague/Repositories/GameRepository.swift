@@ -16,7 +16,7 @@ class GameRepository {
     func loadDate() {
         
         db.collection("games")
-            .whereField("userId", isEqualTo: userId as Any)
+//            .whereField("userId", isEqualTo: userId as Any)
             .order(by: "createdTime", descending: false)
             .addSnapshotListener { querySnapshot, error in
                 DispatchQueue.main.async {

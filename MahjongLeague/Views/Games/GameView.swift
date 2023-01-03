@@ -3,64 +3,76 @@ import SwiftUI
 struct GameView: View {
     
     @StateObject private var gameViewModel = GameViewModel()
-    @StateObject private var playerViewModel = PlayerViewModel()
     @State private var isShowAddPlayerView: Bool = false
     @State private var isShowAddGameView: Bool = false
+    private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            VStack(spacing: 16) {
-                List {
-                    ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(gameCellViewModel.date)
-                                    .font(.caption)
-                                Divider()
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        GameResultView(name: gameCellViewModel.game.result.results[0].player.name, score: gameCellViewModel.game.result.results[0].score)
-                                        Spacer(minLength: 0)
-                                        GameResultView(name: gameCellViewModel.game.result.results[1].player.name, score: gameCellViewModel.game.result.results[1].score)
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                VStack(spacing: 8) {
+                    List {
+                        ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    VStack(spacing: 8) {
+                                        Text(gameCellViewModel.date)
+                                            .font(.caption)
+                                            .lineLimit(1)
+                                        HStack(spacing: 4) {
+                                            Text("ウマ:")
+                                                .font(.caption)
+                                            Text(gameCellViewModel.game.gameType)
+                                                .font(.caption)
+                                        }
+                                        .padding(2)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .stroke(Color.primary, lineWidth: 1)
+                                        )
                                     }
-                                    HStack {
-                                        GameResultView(name: gameCellViewModel.game.result.results[2].player.name, score: gameCellViewModel.game.result.results[2].score)
-                                        Spacer(minLength: 0)
-                                        GameResultView(name: gameCellViewModel.game.result.results[3].player.name, score: gameCellViewModel.game.result.results[3].score)
+                                    Divider()
+                                    LazyVGrid(columns: Array(repeating: columns, count: 2)) {
+                                        ForEach(gameCellViewModel.result) { result in
+                                            HStack {
+                                                Text(result.player.name)
+                                                Text(result.score)
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                Button {
+                    isShowAddGameView.toggle()
+                } label: {
+                    Image(systemName: "plus")
+                        .padding()
+                        .font(.title2)
+                        .foregroundColor(.white)
+                }
+                .frame(width: 60, height: 60)
+                .background(Color.primary)
+                .cornerRadius(30)
+                .shadow(color: .gray, radius: 3, x: 3, y: 3)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
             }
-            Button {
-                isShowAddGameView.toggle()
-            } label: {
-                Image(systemName: "plus")
-                    .padding()
-                    .font(.title2)
-                    .foregroundColor(.white)
+            .navigationTitle("麻雀")
+            .sheet(isPresented: $isShowAddGameView) {
+                NavigationStack {
+                    AddGameView(gameViewModel: gameViewModel)
+                        .navigationBarTitle("対戦結果を入力", displayMode: .inline)
+                }
             }
-            .frame(width: 60, height: 60)
-            .background(Color.primary)
-            .cornerRadius(30)
-            .shadow(color: .gray, radius: 3, x: 3, y: 3)
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
-        }
-        .navigationTitle("麻雀")
-        .sheet(isPresented: $isShowAddPlayerView) {
-            AddPlayerView(viewModel: playerViewModel)
-        }
-        .sheet(isPresented: $isShowAddGameView) {
-            AddGameView(gameViewModel: gameViewModel, players: playerViewModel.playerCellViewModels)
         }
     }
-
+    
     struct GameResultView: View {
         let name: String
         let score: String
-
+        
         var body: some View {
             HStack {
                 Text(name)

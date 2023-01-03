@@ -4,7 +4,6 @@ import Combine
 class PlayerViewModel: ObservableObject {
     @Published var repository = PlayerRepository()
     @Published var playerCellViewModels = [PlayerCellViewModel]()
-    @Published var players: [Player] = []
 
     private var cancellables = Set<AnyCancellable>()
 

@@ -16,7 +16,8 @@ class PlayerRepository {
     func loadDate() {
 
         db.collection("players")
-            .whereField("userId", isEqualTo: userId as Any)
+//            .whereField("userId", isEqualTo: userId as Any)
+            .order(by: "createdTime", descending: false)
             .addSnapshotListener { querySnapshot, error in
                 DispatchQueue.main.async {
                     if let querySnapshot = querySnapshot {

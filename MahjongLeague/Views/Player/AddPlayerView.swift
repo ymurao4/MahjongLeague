@@ -1,9 +1,8 @@
 import SwiftUI
 
 struct AddPlayerView: View {
-    @ObservedObject var viewModel: PlayerViewModel
+    @ObservedObject var viewModel: PlayerViewModel = PlayerViewModel()
     @State private var name: String = ""
-    //    let result: Result = .init(results: ["村尾": "33300", "北村": "24800", "寺坂": "26500","一柳": "15400"])
 
     var body: some View {
         VStack(spacing: 16) {
