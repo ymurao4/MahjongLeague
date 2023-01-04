@@ -2,28 +2,28 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import FirebaseAuth
 
-class GameRepository {
-    
+class PlayerRepository {
+
     let db = Firestore.firestore()
     let userId = Auth.auth().currentUser?.uid
 
-    @Published var game: [Game] = []
-    
+    @Published var player: [Player] = []
+
     init() {
         loadDate()
     }
-    
+
     func loadDate() {
-        
-        db.collection("games")
-            .whereField("userId", isEqualTo: userId as Any)
-            .order(by: "createdTime", descending: true)
+
+        db.collection("players")
+//            .whereField("userId", isEqualTo: userId as Any)
+            .order(by: "createdTime", descending: false)
             .addSnapshotListener { querySnapshot, error in
                 DispatchQueue.main.async {
                     if let querySnapshot = querySnapshot {
-                        self.game = querySnapshot.documents.compactMap({ document in
+                        self.player = querySnapshot.documents.compactMap({ document in
                             do {
-                                let x = try document.data(as: Game.self)
+                                let x = try document.data(as: Player.self)
                                 return x
                             } catch {
                                 print(error.localizedDescription)
@@ -34,12 +34,12 @@ class GameRepository {
                 }
             }
     }
-    
-    func addGame(game: Game) {
+
+    func addPlayer(player: Player) {
         do {
-            var addedGame = game
-            addedGame.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("games").addDocument(from: addedGame)
+            var addedPlayer = player
+            addedPlayer.userId = Auth.auth().currentUser?.uid
+            let _ = try db.collection("players").addDocument(from: addedPlayer)
         } catch {
             fatalError()
         }
