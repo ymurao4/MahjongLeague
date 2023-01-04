@@ -21,4 +21,10 @@ class GameViewModel: ObservableObject {
     func addGame(game: Game) {
         repository.addGame(game: game)
     }
+    
+    func deleteGame(gameId: String?) {
+        if let gameId = gameId {
+            repository.deleteGame(gameId: gameId)
+        }
+    }
 }

@@ -14,7 +14,6 @@ class GameRepository {
     }
     
     func loadDate() {
-        
         db.collection("games")
             .whereField("userId", isEqualTo: userId as Any)
             .order(by: "createdTime", descending: true)
@@ -43,5 +42,16 @@ class GameRepository {
         } catch {
             fatalError()
         }
+    }
+    
+    func deleteGame(gameId: String) {
+        db.collection("games").document(gameId).delete() { error in
+            if let error = error {
+                print("Error removing document: \(error.localizedDescription)")
+            } else {
+                print("Document successfully deleted!")
+            }
+        }
+        loadDate()
     }
 }

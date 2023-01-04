@@ -2,7 +2,7 @@ import SwiftUI
 
 struct GameView: View {
     
-    @StateObject private var gameViewModel = GameViewModel()
+    @StateObject private var viewModel = GameViewModel()
     @State private var isShowAddPlayerView: Bool = false
     @State private var isShowAddGameView: Bool = false
     private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
@@ -12,7 +12,7 @@ struct GameView: View {
             ZStack(alignment: .bottomTrailing) {
                 VStack(spacing: 8) {
                     List {
-                        ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
+                        ForEach(viewModel.gameCellViewModels) { gameCellViewModel in
                             VStack(alignment: .leading) {
                                 HStack {
                                     VStack(spacing: 8) {
@@ -51,6 +51,14 @@ struct GameView: View {
                                     }
                                 }
                             }
+                            .swipeActions(edge: .trailing) {
+                                Button {
+                                    viewModel.deleteGame(gameId: gameCellViewModel.id)
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                            }
                         }
                     }
                 }
@@ -71,7 +79,7 @@ struct GameView: View {
             .navigationTitle("麻雀")
             .sheet(isPresented: $isShowAddGameView) {
                 NavigationStack {
-                    AddGameView(gameViewModel: gameViewModel)
+                    AddGameView(gameViewModel: viewModel)
                         .navigationBarTitle("対戦結果を入力", displayMode: .inline)
                 }
             }
