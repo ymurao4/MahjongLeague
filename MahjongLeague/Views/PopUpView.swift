@@ -1,25 +1,26 @@
 import SwiftUI
 
 struct PopUpView: View {
+    @Environment(\.presentationMode) var presentationMode
     @Binding var isPopUpView: Bool
     let message: String
     var body: some View {
         HStack {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(Color.secondary)
+                .foregroundColor(Color.primary)
             Text(message)
                 .bold()
             Spacer()
             Button {
                 isPopUpView = false
+                presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("OK")
-                    .bold()
                     .font(.caption)
                     .foregroundColor(.white)
                     .padding(.vertical, 4)
                     .padding(.horizontal, 8)
-                    .background(Color.secondary)
+                    .background(Color.primary)
                     .cornerRadius(8)
             }
 
@@ -29,7 +30,7 @@ struct PopUpView: View {
         .padding(.horizontal, 16)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.secondary, lineWidth: 4)
+                .stroke(Color.primary, lineWidth: 4)
         )
         .background(Color.white)
         .cornerRadius(16)

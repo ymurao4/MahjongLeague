@@ -19,24 +19,33 @@ struct GameView: View {
                                         Text(gameCellViewModel.date)
                                             .font(.caption)
                                             .lineLimit(1)
-                                        HStack(spacing: 4) {
-                                            Text("ウマ:")
+                                        HStack {
+                                            Text(gameCellViewModel.game.isFourPeople ? "四" : "三")
                                                 .font(.caption)
-                                            Text(gameCellViewModel.game.gameType)
-                                                .font(.caption)
+                                                .padding(2)
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(Color.primary, lineWidth: 1)
+                                                )
+                                            HStack(spacing: 4) {
+                                                Text("ウマ:")
+                                                    .font(.caption)
+                                                Text(gameCellViewModel.game.gameType)
+                                                    .font(.caption)
+                                            }
+                                            .padding(2)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 4)
+                                                    .stroke(Color.primary, lineWidth: 1)
+                                            )
                                         }
-                                        .padding(2)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .stroke(Color.primary, lineWidth: 1)
-                                        )
                                     }
                                     Divider()
                                     LazyVGrid(columns: Array(repeating: columns, count: 2)) {
-                                        ForEach(gameCellViewModel.result) { result in
+                                        ForEach(0..<gameCellViewModel.result.results.count, id: \.self) { i in
                                             HStack {
-                                                Text(result.player.name)
-                                                Text(result.score)
+                                                Text(gameCellViewModel.result.results[i].player.name)
+                                                Text(gameCellViewModel.result.results[i].score)
                                             }
                                         }
                                     }

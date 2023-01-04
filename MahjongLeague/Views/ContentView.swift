@@ -14,7 +14,7 @@ struct ContentView: View {
                     Text("記録")
                     Image(systemName: "pencil")
                 }
-            Text("hoge")
+            AnalysysView()
                 .tabItem {
                     Text("分析")
                     Image(systemName: "doc.text")

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class GameCellViewModel: ObservableObject, Identifiable {
+class AnalysysCellViewModel: ObservableObject, Identifiable {
 
     @Published var game: Game
     @Published var date: String = ""

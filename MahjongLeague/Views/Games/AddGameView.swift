@@ -10,8 +10,9 @@ struct AddGameView: View {
     @State private var isPopUpView: Bool = false
     @State private var isAddPlayer: Bool = false
     @State private var isHalfRound: Bool = false
-    @State private var isFourPeople: Bool = true
+    @State private var selectedNumOfPeople: Int = 0
     @State private var selectedGameType: GameType = .oneThree
+    
     
     private let columns: GridItem = .init(.flexible(minimum: 60, maximum: 80))
     
@@ -30,7 +31,13 @@ struct AddGameView: View {
                 
                 List {
                     Section {
-                        Toggle("四麻", isOn: $isFourPeople)
+                        Picker("", selection: $selectedNumOfPeople) {
+                            Text("四人麻雀")
+                                .tag(0)
+                            Text("三人麻雀")
+                                .tag(1)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
                         Picker("ウマを選択", selection: $selectedGameType) {
                             ForEach(GameType.allCases, id: \.self) { value in
                                 Text(value.rawValue)
@@ -80,7 +87,7 @@ struct AddGameView: View {
         .alert(isPresented: $isAlert) {
             Alert(
                 title: Text("内容に不備があります"),
-                message: Text("・合計スコアが10万点でない\nもしくは\n・メンバー数が足りていない")
+                message: Text("・合計スコアが10万点でない\nもしくは\n・メンバー数に過不足があります")
             )
         }
         .alert("プレイヤー名を入力", isPresented: $isAddPlayer, actions: {
@@ -100,7 +107,7 @@ struct AddGameView: View {
     }
     
     private func addPlayer(player: Player) {
-        let playerCount = isFourPeople ? 4 : 3
+        let playerCount = selectedNumOfPeople == 0 ? 4 : 3
         for gameResult in gameResults {
             if gameResult.player.id == player.id {
                 return
@@ -115,7 +122,7 @@ struct AddGameView: View {
     private func submitResult() {
         var isNotEmptyScore: Bool = false
         var totalScore: Int = 0
-        let totalScoreByGameType = isFourPeople ? 100000 : 105000
+        let totalScoreByGameType = selectedNumOfPeople == 0  ? 100000 : 105000
         
         for gameResult in gameResults {
             let score: String = gameResult.score.trimmingCharacters(in: .whitespaces)
@@ -130,13 +137,37 @@ struct AddGameView: View {
         
         if isNotEmptyScore {
             let result: Result = .init(results: gameResults)
-            gameViewModel.addGame(game: .init(result: result, isHalfRound: isHalfRound, isFourPeople: isFourPeople, gameType: selectedGameType.rawValue))
-            
+            gameViewModel.addGame(game: .init(result: result, isHalfRound: isHalfRound, isFourPeople: selectedNumOfPeople == 0 , gameType: selectedGameType.rawValue))
             withAnimation {
                 isPopUpView.toggle()
             }
         } else {
             isAlert.toggle()
+        }
+    }
+    
+    // NOTE: View
+    private struct GamePeopleView: View {
+        @Binding var isFourPeople: Bool
+        var body: some View {
+            HStack {
+                Button {
+                    isFourPeople = true
+                } label: {
+                    Text("四人麻雀")
+                }
+                .buttonStyle(PlainButtonStyle())
+                .frame(maxWidth: .infinity)
+                .background(isFourPeople ? Color.primary : .white)
+                Button {
+                    isFourPeople = false
+                } label: {
+                    Text("三人麻雀")
+                }
+                .buttonStyle(PlainButtonStyle())
+                .frame(maxWidth: .infinity)
+                .background(!isFourPeople ? Color.primary : .white)
+            }
         }
     }
     

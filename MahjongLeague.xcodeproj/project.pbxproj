@@ -32,6 +32,8 @@
 		0497CCDD289FA5F100DA7E2F /* LeagueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCDC289FA5F100DA7E2F /* LeagueViewModel.swift */; };
 		0497CCDF289FA5F900DA7E2F /* LeagueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCDE289FA5F900DA7E2F /* LeagueCellViewModel.swift */; };
 		0497CCE1289FA65C00DA7E2F /* LeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497CCE0289FA65C00DA7E2F /* LeagueView.swift */; };
+		04FBFEB729655E7800421F32 /* AnalysysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEB629655E7800421F32 /* AnalysysViewModel.swift */; };
+		04FBFEBA29655EB500421F32 /* AnalysysCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEB929655EB500421F32 /* AnalysysCellViewModel.swift */; };
 		5D2E21EB2960058900D96811 /* AddPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21EA2960058900D96811 /* AddPlayerView.swift */; };
 		5D2E21EE2960063200D96811 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21ED2960063200D96811 /* PlayerViewModel.swift */; };
 		5D2E21F12960066400D96811 /* PlayerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21F02960066400D96811 /* PlayerRepository.swift */; };
@@ -65,6 +67,8 @@
 		0497CCDC289FA5F100DA7E2F /* LeagueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueViewModel.swift; sourceTree = "<group>"; };
 		0497CCDE289FA5F900DA7E2F /* LeagueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueCellViewModel.swift; sourceTree = "<group>"; };
 		0497CCE0289FA65C00DA7E2F /* LeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueView.swift; sourceTree = "<group>"; };
+		04FBFEB629655E7800421F32 /* AnalysysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysysViewModel.swift; sourceTree = "<group>"; };
+		04FBFEB929655EB500421F32 /* AnalysysCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysysCellViewModel.swift; sourceTree = "<group>"; };
 		5D2E21EA2960058900D96811 /* AddPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerView.swift; sourceTree = "<group>"; };
 		5D2E21ED2960063200D96811 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		5D2E21F02960066400D96811 /* PlayerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRepository.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				0497CCDB289FA5E900DA7E2F /* League */,
 				0497CCDA289FA5DA00DA7E2F /* Game */,
 				5D2E21EF2960063600D96811 /* Player */,
+				04FBFEB829655E7B00421F32 /* Analysys */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -215,6 +220,15 @@
 				0497CCDE289FA5F900DA7E2F /* LeagueCellViewModel.swift */,
 			);
 			path = League;
+			sourceTree = "<group>";
+		};
+		04FBFEB829655E7B00421F32 /* Analysys */ = {
+			isa = PBXGroup;
+			children = (
+				04FBFEB629655E7800421F32 /* AnalysysViewModel.swift */,
+				04FBFEB929655EB500421F32 /* AnalysysCellViewModel.swift */,
+			);
+			path = Analysys;
 			sourceTree = "<group>";
 		};
 		5D2E21EC296005E500D96811 /* Player */ = {
@@ -329,6 +343,8 @@
 				0497CCD3289F5FA200DA7E2F /* GameViewModel.swift in Sources */,
 				0497CCBE289DE82500DA7E2F /* Game.swift in Sources */,
 				048D496A28A4C95C00A1C6CC /* AddGameView.swift in Sources */,
+				04FBFEB729655E7800421F32 /* AnalysysViewModel.swift in Sources */,
+				04FBFEBA29655EB500421F32 /* AnalysysCellViewModel.swift in Sources */,
 				0497CCDD289FA5F100DA7E2F /* LeagueViewModel.swift in Sources */,
 				0497CCE1289FA65C00DA7E2F /* LeagueView.swift in Sources */,
 				0497CCAB289DE5E800DA7E2F /* Persistence.swift in Sources */,
