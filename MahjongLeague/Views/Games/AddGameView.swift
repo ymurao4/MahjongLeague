@@ -14,6 +14,7 @@ struct AddGameView: View {
     @State private var isHalfRound: Bool = false
     @State private var selectedNumOfPeople: Int = 0
     @State private var selectedGameType: GameType = .oneThree
+    @State private var isEnter: Bool = false
     
     private let columns: GridItem = .init(.fixed(56))
     
@@ -68,6 +69,7 @@ struct AddGameView: View {
                         Text("画面上部のメンバーをタップして参加者を追加！")
                             .font(.callout)
                             .foregroundColor(.gray)
+                        
                     } else {
                         ForEach(0..<gameResults.count, id: \.self) { i in
                             ScoreView(gameResult: $gameResults[i])
@@ -83,32 +85,37 @@ struct AddGameView: View {
                     }
                 }
             }
-            
-            Button {
-                if gameResults.count >= 3 {
-                    submitResult()
-                } else {
-                    isSubmitAlert.toggle()
-                }
-            } label: {
-                Text("記録する")
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .foregroundColor(.white)
-                    .bold()
+            .onTapGesture {
+                UIApplication.shared.closeKeyboard()
             }
-            .background(Color.primary)
-            .cornerRadius(4)
-            .padding(.horizontal, 16)
+            
+            if !isEnter {
+                Button {
+                    if gameResults.count >= 3 {
+                        submitResult()
+                    } else {
+                        isSubmitAlert.toggle()
+                    }
+                } label: {
+                    Text("記録する")
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .foregroundColor(.white)
+                        .bold()
+                }
+                .background(Color.primary)
+                .cornerRadius(4)
+                .padding(.horizontal, 16)
+            }
         }
-        .navigationDestination(isPresented: $isEditPlayer, destination: { EditPlayerView(playerViewModel: playerViewModel) })
+        .navigationDestination(isPresented: $isEditPlayer, destination: { EditPlayerView(viewModel: playerViewModel) })
         .alert(isPresented: $isSubmitAlert) {
             Alert(
                 title: Text("内容に不備があります"),
                 message: Text("・合計スコアが10万点でない\nもしくは\n・メンバー数に過不足があります")
             )
         }
-        .alert("メンバー名を入力", isPresented: $isAddPlayer, actions: {
+        .alert("メンバー名を追加", isPresented: $isAddPlayer, actions: {
             TextField("メンバー名を入力", text: $playerNameTextField)
             Button("キャンセル", action: {})
             Button("追加") {
@@ -116,6 +123,12 @@ struct AddGameView: View {
                 playerNameTextField = ""
             }
         })
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
+            isEnter = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
+            isEnter = false
+        }
     }
     
     private func addPlayer(player: Player) {
@@ -206,6 +219,7 @@ struct AddGameView: View {
             HStack(spacing: 16) {
                 Text(gameResult.player.name)
                 TextField("score", text: $gameResult.score)
+                    .keyboardType(.numberPad)
             }
         }
     }

@@ -46,6 +46,16 @@ class PlayerRepository {
         }
     }
     
+    func updatePlayer(player: Player) {
+        if let playerId = player.id {
+            do {
+                try db.collection("players").document(playerId).setData(from: player)
+            } catch {
+                fatalError("Unable to encode note: \(error)")
+            }
+        }
+    }
+    
     func deletePlayer(playerId: String) {
         db.collection("players").document(playerId).delete() { error in
             if let error = error {
@@ -56,5 +66,4 @@ class PlayerRepository {
             }
         }
     }
-
 }
