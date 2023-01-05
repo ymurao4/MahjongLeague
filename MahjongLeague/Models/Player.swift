@@ -4,7 +4,7 @@ import FirebaseFirestoreSwift
 
 struct Player: Codable, Identifiable {
     @DocumentID var id: String?
-    let name: String
+    var name: String
     var userId: String?
     @ServerTimestamp var createdTime: Timestamp?
 }

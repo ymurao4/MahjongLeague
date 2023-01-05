@@ -20,4 +20,14 @@ class PlayerViewModel: ObservableObject {
     func addPlayer(player: Player) {
         repository.addPlayer(player: player)
     }
+    
+    func updatePlayer(player: Player) {
+        repository.updatePlayer(player: player)
+    }
+    
+    func deletePlayer(playerId: String?) {
+        if let playerId = playerId {
+            repository.deletePlayer(playerId: playerId)
+        }
+    }
 }

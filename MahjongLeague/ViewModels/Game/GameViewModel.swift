@@ -17,8 +17,18 @@ class GameViewModel: ObservableObject {
         .assign(to: \.gameCellViewModels, on: self)
         .store(in: &cancellables)
     }
+    
+    func reloadData() {
+        repository.loadDate()
+    }
 
     func addGame(game: Game) {
         repository.addGame(game: game)
+    }
+    
+    func deleteGame(gameId: String?) {
+        if let gameId = gameId {
+            repository.deleteGame(gameId: gameId)
+        }
     }
 }

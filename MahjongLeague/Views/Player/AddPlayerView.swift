@@ -9,6 +9,7 @@ struct AddPlayerView: View {
             TextField("名前を入力してください", text: $name)
             Button {
                 viewModel.addPlayer(player: .init(name: name))
+                name = ""
             } label: {
                 Text("Playerを追加")
             }

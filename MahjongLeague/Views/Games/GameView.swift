@@ -2,7 +2,7 @@ import SwiftUI
 
 struct GameView: View {
     
-    @StateObject private var gameViewModel = GameViewModel()
+    @StateObject private var viewModel = GameViewModel()
     @State private var isShowAddPlayerView: Bool = false
     @State private var isShowAddGameView: Bool = false
     private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
@@ -11,49 +11,52 @@ struct GameView: View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 VStack(spacing: 8) {
-                    List {
-                        ForEach(gameViewModel.gameCellViewModels) { gameCellViewModel in
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    VStack(spacing: 8) {
-                                        Text(gameCellViewModel.date)
-                                            .font(.caption)
-                                            .lineLimit(1)
-                                        HStack {
-                                            Text(gameCellViewModel.game.isFourPeople ? "四" : "三")
+                    if viewModel.gameCellViewModels.isEmpty {
+                        Text("右下の+から記録しよう！")
+                            .foregroundColor(.gray)
+                    } else {
+                        List {
+                            ForEach(viewModel.gameCellViewModels) { gameCellViewModel in
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        VStack(spacing: 8) {
+                                            Text(gameCellViewModel.date)
                                                 .font(.caption)
-                                                .padding(2)
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.primary, lineWidth: 1)
-                                                )
+                                                .lineLimit(1)
                                             HStack(spacing: 4) {
-                                                Text("ウマ:")
+                                                Text(gameCellViewModel.game.isFourPeople ? "四麻" : "三麻")
                                                     .font(.caption)
-                                                Text(gameCellViewModel.game.gameType)
-                                                    .font(.caption)
+                                                HStack(spacing: 4) {
+                                                    Text("ウマ:")
+                                                        .font(.caption)
+                                                    Text(gameCellViewModel.game.gameType)
+                                                        .font(.caption)
+                                                }
                                             }
-                                            .padding(2)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 4)
-                                                    .stroke(Color.primary, lineWidth: 1)
-                                            )
+                                            .foregroundColor(.gray)
                                         }
-                                    }
-                                    Divider()
-                                    LazyVGrid(columns: Array(repeating: columns, count: 2)) {
-                                        ForEach(0..<gameCellViewModel.result.results.count, id: \.self) { i in
-                                            HStack {
-                                                Text(gameCellViewModel.result.results[i].player.name)
-                                                Text(gameCellViewModel.result.results[i].score)
+                                        Divider()
+                                        LazyVGrid(columns: Array(repeating: columns, count: 2), alignment: .leading) {
+                                            ForEach(0..<gameCellViewModel.result.results.count, id: \.self) { i in
+                                                HStack {
+                                                    Text(gameCellViewModel.result.results[i].player.name)
+                                                        .font(.footnote)
+                                                    Text(gameCellViewModel.result.results[i].score)
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+                            .onDelete(perform: delete)
+                        }
+                        .listStyle(.plain)
+                        .refreshable {
+                            viewModel.reloadData()
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 Button {
                     isShowAddGameView.toggle()
                 } label: {
@@ -71,7 +74,7 @@ struct GameView: View {
             .navigationTitle("麻雀")
             .sheet(isPresented: $isShowAddGameView) {
                 NavigationStack {
-                    AddGameView(gameViewModel: gameViewModel)
+                    AddGameView(gameViewModel: viewModel)
                         .navigationBarTitle("対戦結果を入力", displayMode: .inline)
                 }
             }
@@ -88,6 +91,12 @@ struct GameView: View {
                 Text(score)
                     .font(.subheadline)
             }
+        }
+    }
+    
+    private func delete(at offsets: IndexSet) {
+        if let i = offsets.first {
+            viewModel.deleteGame(gameId: viewModel.gameCellViewModels[i].id)
         }
     }
 }
