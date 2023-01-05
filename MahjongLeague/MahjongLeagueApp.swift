@@ -1,10 +1,3 @@
-//
-//  MahjongLeagueApp.swift
-//  MahjongLeague
-//
-//  Created by 村尾慶伸 on 2022/08/06.
-//
-
 import SwiftUI
 import FirebaseCore
 import Firebase
@@ -15,7 +8,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         
         if Auth.auth().currentUser == nil {
-            
             Auth.auth().signInAnonymously()
         }
         

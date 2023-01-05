@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct PopUpView: View {
-    @Environment(\.presentationMode) var presentationMode
     @Binding var isPopUpView: Bool
     let message: String
     var body: some View {
@@ -13,7 +12,6 @@ struct PopUpView: View {
             Spacer()
             Button {
                 isPopUpView = false
-                presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("OK")
                     .font(.caption)

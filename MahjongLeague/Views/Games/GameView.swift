@@ -11,42 +11,52 @@ struct GameView: View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 VStack(spacing: 8) {
-                    List {
-                        ForEach(viewModel.gameCellViewModels) { gameCellViewModel in
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    VStack(spacing: 8) {
-                                        Text(gameCellViewModel.date)
-                                            .font(.caption)
-                                            .lineLimit(1)
-                                        HStack(spacing: 4) {
-                                            Text(gameCellViewModel.game.isFourPeople ? "四麻" : "三麻")
+                    if viewModel.gameCellViewModels.isEmpty {
+                        Text("右下の+から記録しよう！")
+                            .foregroundColor(.gray)
+                    } else {
+                        List {
+                            ForEach(viewModel.gameCellViewModels) { gameCellViewModel in
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        VStack(spacing: 8) {
+                                            Text(gameCellViewModel.date)
                                                 .font(.caption)
+                                                .lineLimit(1)
                                             HStack(spacing: 4) {
-                                                Text("ウマ:")
+                                                Text(gameCellViewModel.game.isFourPeople ? "四麻" : "三麻")
                                                     .font(.caption)
-                                                Text(gameCellViewModel.game.gameType)
-                                                    .font(.caption)
+                                                HStack(spacing: 4) {
+                                                    Text("ウマ:")
+                                                        .font(.caption)
+                                                    Text(gameCellViewModel.game.gameType)
+                                                        .font(.caption)
+                                                }
                                             }
+                                            .foregroundColor(.gray)
                                         }
-                                        .foregroundColor(.gray)
-                                    }
-                                    Divider()
-                                    LazyVGrid(columns: Array(repeating: columns, count: 2)) {
-                                        ForEach(0..<gameCellViewModel.result.results.count, id: \.self) { i in
-                                            HStack {
-                                                Text(gameCellViewModel.result.results[i].player.name)
-                                                    .font(.footnote)
-                                                Text(gameCellViewModel.result.results[i].score)
+                                        Divider()
+                                        LazyVGrid(columns: Array(repeating: columns, count: 2), alignment: .leading) {
+                                            ForEach(0..<gameCellViewModel.result.results.count, id: \.self) { i in
+                                                HStack {
+                                                    Text(gameCellViewModel.result.results[i].player.name)
+                                                        .font(.footnote)
+                                                    Text(gameCellViewModel.result.results[i].score)
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+                            .onDelete(perform: delete)
                         }
-                        .onDelete(perform: delete)
+                        .listStyle(.plain)
+                        .refreshable {
+                            viewModel.reloadData()
+                        }
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 Button {
                     isShowAddGameView.toggle()
                 } label: {
