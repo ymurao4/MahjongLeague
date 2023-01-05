@@ -19,47 +19,32 @@ struct GameView: View {
                                         Text(gameCellViewModel.date)
                                             .font(.caption)
                                             .lineLimit(1)
-                                        HStack {
-                                            Text(gameCellViewModel.game.isFourPeople ? "四" : "三")
+                                        HStack(spacing: 4) {
+                                            Text(gameCellViewModel.game.isFourPeople ? "四麻" : "三麻")
                                                 .font(.caption)
-                                                .padding(2)
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.primary, lineWidth: 1)
-                                                )
                                             HStack(spacing: 4) {
                                                 Text("ウマ:")
                                                     .font(.caption)
                                                 Text(gameCellViewModel.game.gameType)
                                                     .font(.caption)
                                             }
-                                            .padding(2)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 4)
-                                                    .stroke(Color.primary, lineWidth: 1)
-                                            )
                                         }
+                                        .foregroundColor(.gray)
                                     }
                                     Divider()
                                     LazyVGrid(columns: Array(repeating: columns, count: 2)) {
                                         ForEach(0..<gameCellViewModel.result.results.count, id: \.self) { i in
                                             HStack {
                                                 Text(gameCellViewModel.result.results[i].player.name)
+                                                    .font(.footnote)
                                                 Text(gameCellViewModel.result.results[i].score)
                                             }
                                         }
                                     }
                                 }
                             }
-                            .swipeActions(edge: .trailing) {
-                                Button {
-                                    viewModel.deleteGame(gameId: gameCellViewModel.id)
-                                } label: {
-                                    Image(systemName: "trash")
-                                }
-                                .tint(.red)
-                            }
                         }
+                        .onDelete(perform: delete)
                     }
                 }
                 Button {
@@ -96,6 +81,12 @@ struct GameView: View {
                 Text(score)
                     .font(.subheadline)
             }
+        }
+    }
+    
+    private func delete(at offsets: IndexSet) {
+        if let i = offsets.first {
+            viewModel.deleteGame(gameId: viewModel.gameCellViewModels[i].id)
         }
     }
 }

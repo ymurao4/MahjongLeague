@@ -7,7 +7,7 @@ class GameRepository {
     let db = Firestore.firestore()
     let userId = Auth.auth().currentUser?.uid
 
-    @Published var game: [Game] = []
+    @Published var game = [Game]()
     
     init() {
         loadDate()
@@ -15,20 +15,22 @@ class GameRepository {
     
     func loadDate() {
         db.collection("games")
-            .whereField("userId", isEqualTo: userId as Any)
             .order(by: "createdTime", descending: true)
+            .whereField("userId", isEqualTo: userId as Any)
             .addSnapshotListener { querySnapshot, error in
                 DispatchQueue.main.async {
                     if let querySnapshot = querySnapshot {
-                        self.game = querySnapshot.documents.compactMap({ document in
-                            do {
-                                let x = try document.data(as: Game.self)
-                                return x
-                            } catch {
-                                print(error.localizedDescription)
-                            }
-                            return nil
-                        })
+                        DispatchQueue.main.async {
+                            self.game = querySnapshot.documents.compactMap({ document in
+                                do {
+                                    let x = try document.data(as: Game.self)
+                                    return x
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                                return nil
+                            })
+                        }
                     }
                 }
             }
@@ -52,6 +54,5 @@ class GameRepository {
                 print("Document successfully deleted!")
             }
         }
-        loadDate()
     }
 }

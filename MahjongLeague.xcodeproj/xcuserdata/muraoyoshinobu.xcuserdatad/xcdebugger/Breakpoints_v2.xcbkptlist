@@ -3,4 +3,174 @@
    uuid = "ABBCF37A-6980-40A6-9FDE-76D27B2C1228"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MahjongLeague/Repositories/GameRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
+            landmarkName = "GameRepository"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - f12f0d5bc395db2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of MahjongLeague.GameRepository.game : Swift.Array&lt;MahjongLeague.Game&gt;"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - c7facf9500f9faba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.game.getter : Swift.Array&lt;MahjongLeague.Game&gt;"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 5e7ad0b5820bfece"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.game.setter : Swift.Array&lt;MahjongLeague.Game&gt;"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 839c3860f9214bb9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.game.modify : Swift.Array&lt;MahjongLeague.Game&gt;"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 7094f72d406aa772"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.game.modify : Swift.Array&lt;MahjongLeague.Game&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 87a53043965079e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.$game.getter : Combine.Published&lt;Swift.Array&lt;MahjongLeague.Game&gt;&gt;.Publisher"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 87a53043965079e0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.$game.setter : Combine.Published&lt;Swift.Array&lt;MahjongLeague.Game&gt;&gt;.Publisher"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - f80a1fbb1d150703"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.$game.modify : Combine.Published&lt;Swift.Array&lt;MahjongLeague.Game&gt;&gt;.Publisher"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 1fcb86c09b580435"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.$game.modify : Combine.Published&lt;Swift.Array&lt;MahjongLeague.Game&gt;&gt;.Publisher with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "6CA20C6C-24F5-4082-AC38-DC196C239341 - 41429674e4defb1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MahjongLeague.GameRepository.init() -&gt; MahjongLeague.GameRepository"
+                  moduleName = "MahjongLeague"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muraoyoshinobu/Documents/personal%20development/MahjongLeague/MahjongLeague/Repositories/GameRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "348">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
