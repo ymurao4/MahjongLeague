@@ -14,7 +14,7 @@ struct AddGameView: View {
     @State private var isHalfRound: Bool = false
     @State private var selectedNumOfPeople: Int = 0
     @State private var selectedGameType: GameType = .oneThree
-    @State private var isEnter: Bool = false
+    @State var isEnter: Bool = false
     
     private let columns: GridItem = .init(.fixed(56))
     
@@ -50,43 +50,40 @@ struct AddGameView: View {
                         }
                     }
                 }
-                Section(header: Text("ルール")) {
-                    Picker("", selection: $selectedNumOfPeople) {
-                        Text("四人麻雀")
-                            .tag(0)
-                        Text("三人麻雀")
-                            .tag(1)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    Picker("ウマを選択", selection: $selectedGameType) {
-                        ForEach(GameType.allCases, id: \.self) { value in
-                            Text(value.rawValue)
+                Section(header: Text("ルール").font(.title3).bold()) {
+                        Picker("", selection: $selectedNumOfPeople) {
+                            Text("四人麻雀")
+                                .tag(0)
+                            Text("三人麻雀")
+                                .tag(1)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        Picker("ウマを選択", selection: $selectedGameType) {
+                            ForEach(GameType.allCases, id: \.self) { value in
+                                Text(value.rawValue)
+                            }
                         }
                     }
-                }
-                Section(header: Text("参加者")) {
-                    if gameResults.isEmpty {
-                        Text("画面上部のメンバーをタップして参加者を追加！")
-                            .font(.callout)
-                            .foregroundColor(.gray)
-                        
-                    } else {
-                        ForEach(0..<gameResults.count, id: \.self) { i in
-                            ScoreView(gameResult: $gameResults[i])
-                                .swipeActions(edge: .trailing) {
-                                    Button {
-                                        gameResults.remove(at: i)
-                                    } label: {
-                                        Image(systemName: "trash")
+                Section(header: Text("参加者").font(.title3).bold()) {
+                        if gameResults.isEmpty {
+                            Text("画面上部のメンバーをタップして参加者を追加！")
+                                .font(.callout)
+                                .foregroundColor(.gray)
+                            
+                        } else {
+                            ForEach(0..<gameResults.count, id: \.self) { i in
+                                ScoreView(gameResult: $gameResults[i])
+                                    .swipeActions(edge: .trailing) {
+                                        Button {
+                                            gameResults.remove(at: i)
+                                        } label: {
+                                            Image(systemName: "trash")
+                                        }
+                                        .tint(.red)
                                     }
-                                    .tint(.red)
-                                }
+                            }
                         }
                     }
-                }
-            }
-            .onTapGesture {
-                UIApplication.shared.closeKeyboard()
             }
             
             if !isEnter {
@@ -125,8 +122,7 @@ struct AddGameView: View {
         })
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
             isEnter = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
+        }.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
             isEnter = false
         }
     }
@@ -220,6 +216,19 @@ struct AddGameView: View {
                 Text(gameResult.player.name)
                 TextField("score", text: $gameResult.score)
                     .keyboardType(.numberPad)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            HStack {
+                                Spacer()
+                                Button {
+                                    UIApplication.shared.endEditing()
+                                } label: {
+                                    Text("閉じる")
+                                }
+                                Spacer().frame(width: 16)
+                            }
+                        }
+                    }
             }
         }
     }

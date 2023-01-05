@@ -35,7 +35,7 @@
 		04FBFEB729655E7800421F32 /* AnalysysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEB629655E7800421F32 /* AnalysysViewModel.swift */; };
 		04FBFEBA29655EB500421F32 /* AnalysysCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEB929655EB500421F32 /* AnalysysCellViewModel.swift */; };
 		04FBFEBC2966A38B00421F32 /* EditPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEBB2966A38B00421F32 /* EditPlayerView.swift */; };
-		04FBFEBE2966BAE500421F32 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEBD2966BAE500421F32 /* UIApplication+.swift */; };
+		04FBFEC02966C14D00421F32 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEBF2966C14D00421F32 /* UIApplication+.swift */; };
 		5D2E21EB2960058900D96811 /* AddPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21EA2960058900D96811 /* AddPlayerView.swift */; };
 		5D2E21EE2960063200D96811 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21ED2960063200D96811 /* PlayerViewModel.swift */; };
 		5D2E21F12960066400D96811 /* PlayerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21F02960066400D96811 /* PlayerRepository.swift */; };
@@ -72,7 +72,7 @@
 		04FBFEB629655E7800421F32 /* AnalysysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysysViewModel.swift; sourceTree = "<group>"; };
 		04FBFEB929655EB500421F32 /* AnalysysCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysysCellViewModel.swift; sourceTree = "<group>"; };
 		04FBFEBB2966A38B00421F32 /* EditPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerView.swift; sourceTree = "<group>"; };
-		04FBFEBD2966BAE500421F32 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		04FBFEBF2966C14D00421F32 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		5D2E21EA2960058900D96811 /* AddPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerView.swift; sourceTree = "<group>"; };
 		5D2E21ED2960063200D96811 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		5D2E21F02960066400D96811 /* PlayerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRepository.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				5D2E21F42960101900D96811 /* Color+.swift */,
-				04FBFEBD2966BAE500421F32 /* UIApplication+.swift */,
+				04FBFEBF2966C14D00421F32 /* UIApplication+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -350,7 +350,6 @@
 				0497CCD3289F5FA200DA7E2F /* GameViewModel.swift in Sources */,
 				0497CCBE289DE82500DA7E2F /* Game.swift in Sources */,
 				048D496A28A4C95C00A1C6CC /* AddGameView.swift in Sources */,
-				04FBFEBE2966BAE500421F32 /* UIApplication+.swift in Sources */,
 				04FBFEB729655E7800421F32 /* AnalysysViewModel.swift in Sources */,
 				04FBFEBA29655EB500421F32 /* AnalysysCellViewModel.swift in Sources */,
 				0497CCDD289FA5F100DA7E2F /* LeagueViewModel.swift in Sources */,
@@ -361,6 +360,7 @@
 				0497CCD9289FA4CD00DA7E2F /* LeagueRepository.swift in Sources */,
 				5D2E21F82960492A00D96811 /* PopUpView.swift in Sources */,
 				5D2E21F12960066400D96811 /* PlayerRepository.swift in Sources */,
+				04FBFEC02966C14D00421F32 /* UIApplication+.swift in Sources */,
 				048D496728A4C40400A1C6CC /* AddLeagueView.swift in Sources */,
 				0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */,
 				5D2E21EB2960058900D96811 /* AddPlayerView.swift in Sources */,
