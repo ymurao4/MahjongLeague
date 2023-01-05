@@ -1,5 +1,9 @@
 import SwiftUI
 
+enum Field: Int, Hashable {
+    case player1, player2, player3, player4
+}
+
 struct AddGameView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var playerViewModel: PlayerViewModel = PlayerViewModel()
@@ -14,9 +18,17 @@ struct AddGameView: View {
     @State private var isHalfRound: Bool = false
     @State private var selectedNumOfPeople: Int = 0
     @State private var selectedGameType: GameType = .oneThree
-    @State var isEnter: Bool = false
+    @FocusState private var isFocusTextField: Bool
     
     private let columns: GridItem = .init(.fixed(56))
+    var gesture: some Gesture {
+        DragGesture()
+            .onChanged{ value in
+                if value.translation.height != 0 {
+                    self.isFocusTextField = false
+                }
+            }
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -73,6 +85,7 @@ struct AddGameView: View {
                         } else {
                             ForEach(0..<gameResults.count, id: \.self) { i in
                                 ScoreView(gameResult: $gameResults[i])
+                                    .focused($isFocusTextField)
                                     .swipeActions(edge: .trailing) {
                                         Button {
                                             gameResults.remove(at: i)
@@ -85,8 +98,9 @@ struct AddGameView: View {
                         }
                     }
             }
+            .gesture(gesture)
             
-            if !isEnter {
+            if !isFocusTextField {
                 Button {
                     if gameResults.count >= 3 {
                         submitResult()
@@ -121,9 +135,9 @@ struct AddGameView: View {
             }
         })
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
-            isEnter = true
+            isFocusTextField = true
         }.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
-            isEnter = false
+            isFocusTextField = false
         }
     }
     
@@ -210,25 +224,12 @@ struct AddGameView: View {
     
     private struct ScoreView: View {
         @Binding var gameResult: Result.GameResult
-        
+
         var body: some View {
             HStack(spacing: 16) {
                 Text(gameResult.player.name)
                 TextField("score", text: $gameResult.score)
                     .keyboardType(.numberPad)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            HStack {
-                                Spacer()
-                                Button {
-                                    UIApplication.shared.endEditing()
-                                } label: {
-                                    Text("閉じる")
-                                }
-                                Spacer().frame(width: 16)
-                            }
-                        }
-                    }
             }
         }
     }
@@ -237,5 +238,11 @@ struct AddGameView: View {
 struct AddGameView_Previews: PreviewProvider {
     static var previews: some View {
         AddGameView(gameViewModel: GameViewModel())
+    }
+}
+
+extension UIApplication {
+    func closeKeyboard() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
