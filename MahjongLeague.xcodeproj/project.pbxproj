@@ -18,6 +18,8 @@
 		0497CCC4289F4DED00DA7E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */; };
 		0497CCC7289F4E5200DA7E2F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC6289F4E5200DA7E2F /* FirebaseAuth */; };
 		0497CCC9289F4E5200DA7E2F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC8289F4E5200DA7E2F /* FirebaseFirestoreSwift */; };
+		04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4566296813A4006A55E4 /* AddGameView.swift */; };
+		04BB456929681C0F006A55E4 /* AddGameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456829681C0F006A55E4 /* AddGameCore.swift */; };
 		04FBFEC02966C14D00421F32 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEBF2966C14D00421F32 /* UIApplication+.swift */; };
 		04FBFEC22967A02300421F32 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEC12967A02300421F32 /* FirebaseAPIClient.swift */; };
 		04FBFEC62967A1CC00421F32 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 04FBFEC52967A1CC00421F32 /* ComposableArchitecture */; };
@@ -43,6 +45,8 @@
 		0497CCBD289DE82500DA7E2F /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		0497CCC1289DE87A00DA7E2F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04BB4566296813A4006A55E4 /* AddGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameView.swift; sourceTree = "<group>"; };
+		04BB456829681C0F006A55E4 /* AddGameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameCore.swift; sourceTree = "<group>"; };
 		04FBFEBF2966C14D00421F32 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		04FBFEC12967A02300421F32 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		04FBFEC72967A2DC00421F32 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -92,11 +96,11 @@
 			isa = PBXGroup;
 			children = (
 				04FBFED02967A59B00421F32 /* Info.plist */,
+				04BB456529680EE0006A55E4 /* Apps */,
 				04FBFEC32967A0D300421F32 /* APIClient */,
 				04FBFED72967B05A00421F32 /* GameFeature */,
 				0497CCB6289DE78D00DA7E2F /* Models */,
 				5D2E21F62960101D00D96811 /* Utils */,
-				0497CCA1289DE5E700DA7E2F /* MahjongLeagueApp.swift */,
 				0497CCA5289DE5E800DA7E2F /* Assets.xcassets */,
 				0497CCAA289DE5E800DA7E2F /* Persistence.swift */,
 				0497CCAC289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld */,
@@ -126,6 +130,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		04BB456529680EE0006A55E4 /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				0497CCA1289DE5E700DA7E2F /* MahjongLeagueApp.swift */,
+			);
+			path = Apps;
+			sourceTree = "<group>";
+		};
 		04FBFEC32967A0D300421F32 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +159,8 @@
 			children = (
 				04FBFED52967B05500421F32 /* GameCore.swift */,
 				04FBFED82967C76400421F32 /* GameView.swift */,
+				04BB456829681C0F006A55E4 /* AddGameCore.swift */,
+				04BB4566296813A4006A55E4 /* AddGameView.swift */,
 			);
 			path = GameFeature;
 			sourceTree = "<group>";
@@ -251,10 +265,12 @@
 				0497CCBE289DE82500DA7E2F /* Game.swift in Sources */,
 				04FBFEC82967A2DC00421F32 /* APIError.swift in Sources */,
 				0497CCAB289DE5E800DA7E2F /* Persistence.swift in Sources */,
+				04BB456929681C0F006A55E4 /* AddGameCore.swift in Sources */,
 				0497CCC2289DE87A00DA7E2F /* Player.swift in Sources */,
 				04FBFEC02966C14D00421F32 /* UIApplication+.swift in Sources */,
 				04FBFECC2967A41F00421F32 /* AppUser.swift in Sources */,
 				0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */,
+				04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */,
 				04FBFED62967B05500421F32 /* GameCore.swift in Sources */,
 				0497CCA2289DE5E700DA7E2F /* MahjongLeagueApp.swift in Sources */,
 			);

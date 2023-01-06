@@ -1,26 +1,13 @@
 import ComposableArchitecture
 import Foundation
 
-struct GameState: Equatable {
-    var shoudOpenAddGame = false
-    var games: [GameResult.Game] = []
-    var addGameState: AddGameState?
+struct AddGameState: Equatable {
 }
 
-enum GameAction {
-    case loadGames
-//    case addGame
-    case updateGame
-    case deleteGame
-    case setAddGameView(isPresented: Bool)
-    case addGame(AddGameAction)
-    case gameResponse(TaskResult<GameResult>)
-        
-    case onAppear
-    case onDisappear
+enum AddGameAction {
 }
 
-struct GameEnvironment {
+struct AddGameEnvironment {
     var apiClilent: FirebaseAPIClient
     var mainQueue: AnySchedulerOf<DispatchQueue>
     
@@ -33,8 +20,8 @@ struct GameEnvironment {
     }
 }
 
-typealias GameReducer = AnyReducer<GameState, GameAction, GameEnvironment>
-let gameReducer = GameReducer { state, action, environment in
+typealias AddGameReducer = AnyReducer<GameState, GameAction, GameEnvironment>
+let addGameReducer = AddGameReducer { state, action, environment in
 
     struct GameCancelId: Hashable {}
 

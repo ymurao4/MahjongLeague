@@ -26,7 +26,7 @@ struct MahjongLeagueApp: App {
             TabView {
                 GameView(
                     store: Store(
-                        initialState: GameState(isShowAddGameView: false),
+                        initialState: GameState(),
                         reducer: gameReducer,
                         environment: GameEnvironment(
                             apiClient: FirebaseAPIClient.live,
