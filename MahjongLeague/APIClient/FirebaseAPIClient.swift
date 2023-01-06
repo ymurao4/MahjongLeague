@@ -35,7 +35,7 @@ extension FirebaseAPIClient {
                 }
                 .eraseToEffect()
         }, loadGames: {
-            guard let userId = Auth.auth().currentUser?.uid else { return GameResult(results: [])}
+            guard let userId = Auth.auth().currentUser?.uid else { return GameResult(results: []) }
 
             let snapShot = try await db.collection(FirestorePathComponent.games.rawValue)
                 .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)

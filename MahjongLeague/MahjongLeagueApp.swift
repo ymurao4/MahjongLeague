@@ -23,16 +23,27 @@ struct MahjongLeagueApp: App {
     
     var body: some Scene {
         WindowGroup {
-            GameView2(
-                store: Store(
-                    initialState: GameState(isShowAddGameView: false),
-                    reducer: gameReducer,
-                    environment: GameEnvironment(
-                        apiClient: FirebaseAPIClient.live,
-                        mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+            TabView {
+                GameView(
+                    store: Store(
+                        initialState: GameState(isShowAddGameView: false),
+                        reducer: gameReducer,
+                        environment: GameEnvironment(
+                            apiClient: FirebaseAPIClient.live,
+                            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+                        )
                     )
                 )
-            )
+                .tabItem {
+                    Text("記録")
+                    Image(systemName: "pencil")
+                }
+                Text("hoge")
+                    .tabItem {
+                        Text("分析")
+                        Image(systemName: "doc.text")
+                    }
+            }
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

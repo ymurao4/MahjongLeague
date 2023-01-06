@@ -28,7 +28,7 @@
 		04FBFED22967A5A300421F32 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 04FBFED12967A5A300421F32 /* FirebaseAuthCombine-Community */; };
 		04FBFED42967A5B000421F32 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 04FBFED32967A5B000421F32 /* FirebaseFirestoreCombine-Community */; };
 		04FBFED62967B05500421F32 /* GameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFED52967B05500421F32 /* GameCore.swift */; };
-		04FBFED92967C76400421F32 /* GameView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFED82967C76400421F32 /* GameView2.swift */; };
+		04FBFED92967C76400421F32 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFED82967C76400421F32 /* GameView.swift */; };
 		5D2E21F52960101900D96811 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21F42960101900D96811 /* Color+.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +50,7 @@
 		04FBFECB2967A41F00421F32 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		04FBFED02967A59B00421F32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		04FBFED52967B05500421F32 /* GameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCore.swift; sourceTree = "<group>"; };
-		04FBFED82967C76400421F32 /* GameView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView2.swift; sourceTree = "<group>"; };
+		04FBFED82967C76400421F32 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		5D2E21F42960101900D96811 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,7 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				04FBFED52967B05500421F32 /* GameCore.swift */,
-				04FBFED82967C76400421F32 /* GameView2.swift */,
+				04FBFED82967C76400421F32 /* GameView.swift */,
 			);
 			path = GameFeature;
 			sourceTree = "<group>";
@@ -245,7 +245,7 @@
 			files = (
 				04FBFEC22967A02300421F32 /* FirebaseAPIClient.swift in Sources */,
 				5D2E21F52960101900D96811 /* Color+.swift in Sources */,
-				04FBFED92967C76400421F32 /* GameView2.swift in Sources */,
+				04FBFED92967C76400421F32 /* GameView.swift in Sources */,
 				04FBFECA2967A34800421F32 /* None.swift in Sources */,
 				04948E19295FC67100A364F7 /* Record.swift in Sources */,
 				0497CCBE289DE82500DA7E2F /* Game.swift in Sources */,
