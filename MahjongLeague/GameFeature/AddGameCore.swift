@@ -20,35 +20,7 @@ struct AddGameEnvironment {
     }
 }
 
-typealias AddGameReducer = AnyReducer<GameState, GameAction, GameEnvironment>
+typealias AddGameReducer = AnyReducer<AddGameState, AddGameAction, AddGameEnvironment>
 let addGameReducer = AddGameReducer { state, action, environment in
-
-    struct GameCancelId: Hashable {}
-
-    switch action {
-    case .loadGames:
-        return .none
-    case .addGame:
-        return .none
-    case .updateGame:
-        return .none
-    case .deleteGame:
-        return .none
-    case .onAppear:
-        return .task {
-            await GameAction.gameResponse(TaskResult { try await environment.apiClilent.loadGames()} )
-        }
-        .cancellable(id: GameCancelId.self)
-    case .onDisappear:
-        return .none
-    case let .gameResponse(.success(response)):
-        state.games = response.results
-        return .none
-    case .gameResponse(.failure(_)):
-        state.games = []
-        return .none
-    case .setAddGameView(let isPresented):
-        state.shoudOpenAddGame = isPresented
-        return .none
-    }
+    struct AddGameCancelId: Hashable {}
 }

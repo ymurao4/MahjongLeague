@@ -1,13 +1,16 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct AddGameView: View {
-    var body: some View {
-        Text("Hello, World!")
+    let store: Store<AddGameState, AddGameAction>
+    
+    init(store: Store<AddGameState, AddGameAction>) {
+        self.store = store
     }
-}
-
-struct AddGameView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddGameView()
+    
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+            Text("hoge")
+        }
     }
 }

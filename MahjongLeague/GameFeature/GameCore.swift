@@ -9,13 +9,12 @@ struct GameState: Equatable {
 
 enum GameAction {
     case loadGames
-//    case addGame
+    case addGame(AddGameAction)
     case updateGame
     case deleteGame
     case setAddGameView(isPresented: Bool)
-    case addGame(AddGameAction)
     case gameResponse(TaskResult<GameResult>)
-        
+    
     case onAppear
     case onDisappear
 }
@@ -34,34 +33,46 @@ struct GameEnvironment {
 }
 
 typealias GameReducer = AnyReducer<GameState, GameAction, GameEnvironment>
-let gameReducer = GameReducer { state, action, environment in
 
-    struct GameCancelId: Hashable {}
-
-    switch action {
-    case .loadGames:
-        return .none
-    case .addGame:
-        return .none
-    case .updateGame:
-        return .none
-    case .deleteGame:
-        return .none
-    case .onAppear:
-        return .task {
-            await GameAction.gameResponse(TaskResult { try await environment.apiClilent.loadGames()} )
+let gameReducer = GameReducer.combine(
+    
+    addGameReducer
+        .optional()
+        .pullback(
+            state: \.addGameState,
+            action: /GameAction.addGame,
+            environment: { _ in AddGameEnvironment(
+                apiClient: FirebaseAPIClient.live,
+                mainQueue: DispatchQueue.main.eraseToAnyScheduler()) }
+        ),
+    .init { state, action, environment in
+        struct GameCancelId: Hashable {}
+        
+        switch action {
+        case .loadGames:
+            return .none
+        case .addGame:
+            return .none
+        case .updateGame:
+            return .none
+        case .deleteGame:
+            return .none
+        case .onAppear:
+            return .task {
+                await GameAction.gameResponse(TaskResult { try await environment.apiClilent.loadGames()} )
+            }
+            .cancellable(id: GameCancelId.self)
+        case .onDisappear:
+            return .none
+        case let .gameResponse(.success(response)):
+            state.games = response.results
+            return .none
+        case .gameResponse(.failure(_)):
+            state.games = []
+            return .none
+        case .setAddGameView(let isPresented):
+            state.shoudOpenAddGame = isPresented
+            return .none
         }
-        .cancellable(id: GameCancelId.self)
-    case .onDisappear:
-        return .none
-    case let .gameResponse(.success(response)):
-        state.games = response.results
-        return .none
-    case .gameResponse(.failure(_)):
-        state.games = []
-        return .none
-    case .setAddGameView(let isPresented):
-        state.shoudOpenAddGame = isPresented
-        return .none
     }
-}
+)

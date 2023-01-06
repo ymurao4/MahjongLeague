@@ -70,17 +70,19 @@ struct GameView: View {
                     .shadow(color: .gray, radius: 3, x: 3, y: 3)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 16.0, trailing: 16.0))
                 }
-                .sheet(isPresented: viewStore.binding(
-                    get: \.shoudOpenAddGame,
-                    send: GameAction.setAddGameView(isPresented:))
+                .sheet(
+                    isPresented: viewStore.binding(
+                        get: \.shoudOpenAddGame,
+                        send: GameAction.setAddGameView(isPresented:)
+                    )
                 ) {
                     IfLetStore(
                         self.store.scope(
                             state: \.addGameState,
                             action: GameAction.addGame
                         )
-                    ) {_ in
-                        AddGameView()
+                    ) {
+                        AddGameView(store: $0)
                     }
                 }
                 .navigationTitle("麻雀")
