@@ -1,4 +1,4 @@
-import Combine
+import Foundation
 import ComposableArchitecture
 import FirebaseAuth
 import FirebaseAuthCombineSwift
@@ -6,15 +6,15 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct FirebaseAPIClient {
-    var signInAnonymously: () -> Effect<None, APIError>
-    var loadData: () -> Effect<[Game], Never>
+    var signInAnonymously: @Sendable() async throws -> Void
+    var loadGames: @Sendable () async throws -> GameResult
     
     init(
-        signInAnonymously: @escaping () -> Effect<None, APIError>,
-        loadData: @escaping () -> Effect<[Game], Never>
+        signInAnonymously: @escaping @Sendable() async throws -> Void,
+        loadGames: @escaping @Sendable () async throws -> GameResult
     ) {
         self.signInAnonymously = signInAnonymously
-        self.loadData = loadData
+        self.loadGames = loadGames
     }
 }
 
@@ -34,31 +34,17 @@ extension FirebaseAPIClient {
                     APIError.init(error: error)
                 }
                 .eraseToEffect()
-        }, loadData: {
-            var games: [Game] = []
-            if let userId = Auth.auth().currentUser?.uid {
-                db.collection(FirestorePathComponent.games.rawValue)
-                    .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
-                    .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
-                    .addSnapshotListener { querySnapshot, error in
-                        DispatchQueue.main.async {
-                            if let querySnapshot = querySnapshot {
-                                DispatchQueue.main.async {
-                                    games = querySnapshot.documents.compactMap({ document in
-                                        do {
-                                            let x = try document.data(as: Game.self)
-                                            return x
-                                        } catch {
-                                            print(error.localizedDescription)
-                                        }
-                                        return nil
-                                    })
-                                }
-                            }
-                        }
-                    }
+        }, loadGames: {
+            guard let userId = Auth.auth().currentUser?.uid else { return GameResult(results: [])}
+
+            let snapShot = try await db.collection(FirestorePathComponent.games.rawValue)
+                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+                .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
+                .getDocuments()
+            var games = snapShot.documents.compactMap { document in
+                try? document.data(as: GameResult.Game.self)
             }
-            return EffectPublisher(value: games)
+            return GameResult(results: games)
         }
     )
 }
@@ -71,3 +57,14 @@ extension FirebaseAPIClient {
         case createdTime = "createdTime"
     }
 }
+
+private let jsonDecoder: JSONDecoder = {
+  let decoder = JSONDecoder()
+  let formatter = DateFormatter()
+  formatter.calendar = Calendar(identifier: .iso8601)
+  formatter.dateFormat = "yyyy-MM-dd"
+  formatter.timeZone = TimeZone(secondsFromGMT: 0)
+  formatter.locale = Locale(identifier: "en_US_POSIX")
+  decoder.dateDecodingStrategy = .formatted(formatter)
+  return decoder
+}()

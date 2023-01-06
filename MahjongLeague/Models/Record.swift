@@ -1,12 +1,12 @@
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+@preconcurrency import FirebaseFirestoreSwift
 
-struct Result: Codable, Identifiable {
+struct Record: Codable, Identifiable, Equatable, Sendable {
     @DocumentID var id: String?
     var results: [GameResult]
 
-    struct GameResult: Codable, Identifiable {
+    struct GameResult: Codable, Identifiable, Equatable, Sendable {
         @DocumentID var id: String?
         var player: Player
         var score: String

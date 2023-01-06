@@ -1,8 +1,8 @@
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+@preconcurrency import FirebaseFirestoreSwift
 
-struct Player: Codable, Identifiable {
+struct Player: Codable, Identifiable, Equatable, Sendable {
     @DocumentID var id: String?
     var name: String
     var userId: String?

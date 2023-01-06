@@ -1,4 +1,5 @@
 import SwiftUI
+import ComposableArchitecture
 import FirebaseCore
 import Firebase
 
@@ -22,8 +23,17 @@ struct MahjongLeagueApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            GameView2(
+                store: Store(
+                    initialState: GameState(isShowAddGameView: false),
+                    reducer: gameReducer,
+                    environment: GameEnvironment(
+                        apiClient: FirebaseAPIClient.live,
+                        mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+                    )
+                )
+            )
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
