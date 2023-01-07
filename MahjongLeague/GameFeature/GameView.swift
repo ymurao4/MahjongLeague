@@ -90,7 +90,7 @@ struct GameView: View {
                             HStack {
                                 Text(game.result.scores[i].player.name)
                                     .font(.footnote)
-                                Text(game.result.scores[i].score)
+                                Text(game.result.scores[i].point)
                             }
                         }
                     }

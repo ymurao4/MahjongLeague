@@ -33,7 +33,7 @@ struct AddGameView: View {
                             LazyVGrid(columns: Array(repeating: columns, count: 5)) {
                                 ForEach(viewStore.players) { player in
                                     Button {
-                                        viewStore.send(.addScore(Record.Score(player: player, score: "25000")))
+                                        viewStore.send(.addScore(player))
                                     } label: {
                                         PlayerView(player: player)
                                     }
@@ -48,9 +48,9 @@ struct AddGameView: View {
                             send: AddGameFeature.Action.peopleCountChanged)
                         ) {
                             Text("四人麻雀")
-                                .tag(0)
+                                .tag(4)
                             Text("三人麻雀")
-                                .tag(1)
+                                .tag(3)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         Picker("ウマを選択", selection: viewStore.binding(
@@ -69,13 +69,15 @@ struct AddGameView: View {
                                 .foregroundColor(.gray)
 
                         } else {
-                            ForEach(viewStore.scores) { score in
+                            ForEach(0..<viewStore.scores.count, id:\.self) { i in
                                 HStack(spacing: 16) {
-                                    Text(score.player.name)
-//                                    TextField("score", text: $gameResult.score)
-//                                        .keyboardType(.numberPad)
+                                    Text(viewStore.scores[i].player.name)
+                                    TextField("score", text: viewStore.binding(
+                                        get: \.scores[i].point,
+                                        send: { .addScoreField(i, $0) })
+                                    )
+                                        .keyboardType(.numberPad)
                                 }
-
 //                                    .swipeActions(edge: .trailing) {
 //                                        Button {
 //                                            gameResults.remove(at: i)

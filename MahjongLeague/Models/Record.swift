@@ -9,6 +9,6 @@ struct Record: Codable, Identifiable, Equatable, Sendable {
     struct Score: Codable, Identifiable, Equatable, Sendable {
         @DocumentID var id: String?
         var player: Player
-        var score: String
+        var point: String
     }
 }
