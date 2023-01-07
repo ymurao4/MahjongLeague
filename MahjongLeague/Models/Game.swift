@@ -5,17 +5,17 @@ import FirebaseFirestore
 
 struct GameResult: Codable, Equatable, Sendable {
     var results: [Game]
-    
-    struct Game: Codable, Identifiable, Equatable, Sendable {
-        @DocumentID var id: String?
-        @ServerTimestamp var createdTime: Timestamp?
-        var date: Date?
-        var result: Record
-        var isHalfRound: Bool
-        var isFourPeople: Bool
-        var gameType: String
-        var userId: String?
-    }
+}
+
+struct Game: Codable, Identifiable, Equatable, Sendable {
+    @DocumentID var id: String?
+    @ServerTimestamp var createdTime: Timestamp?
+    var date: Date?
+    var result: Record
+    var isHalfRound: Bool
+    var isFourPeople: Bool
+    var gameType: String
+    var userId: String?
 }
 
 enum GameType: String, CaseIterable, Equatable {

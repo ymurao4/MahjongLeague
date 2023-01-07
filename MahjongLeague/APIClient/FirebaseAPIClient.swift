@@ -45,7 +45,7 @@ extension FirebaseAPIClient {
                 .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
                 .getDocuments()
             var games = snapShot.documents.compactMap { document in
-                try? document.data(as: GameResult.Game.self)
+                try? document.data(as: Game.self)
             }
             return GameResult(results: games)
         }, loadPlayers: {

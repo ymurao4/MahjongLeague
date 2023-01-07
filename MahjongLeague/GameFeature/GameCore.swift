@@ -5,7 +5,7 @@ struct GameFeature: ReducerProtocol {
     @Dependency(\.firebaseAPIClient) private var firebaseAPIClient
 
     struct State: Equatable {
-        var games: [GameResult.Game] = []
+        var games: [Game] = []
         var optionalAddGameState: AddGameFeature.State?
         var isSheetPresented = false
     }

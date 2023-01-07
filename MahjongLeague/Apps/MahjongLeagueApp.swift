@@ -39,6 +39,7 @@ struct MahjongLeagueApp: App {
                     }
             }
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .tint(Color.primary)
         }
     }
 }

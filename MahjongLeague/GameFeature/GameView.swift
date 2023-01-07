@@ -62,7 +62,7 @@ struct GameView: View {
     }
 
     private struct GameCellView: View {
-        let game: GameResult.Game
+        let game: Game
         private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
 
         var body: some View {
@@ -86,11 +86,11 @@ struct GameView: View {
                     }
                     Divider()
                     LazyVGrid(columns: Array(repeating: columns, count: 2), alignment: .leading) {
-                        ForEach(0..<game.result.results.count, id: \.self) { i in
+                        ForEach(0..<game.result.scores.count, id: \.self) { i in
                             HStack {
-                                Text(game.result.results[i].player.name)
+                                Text(game.result.scores[i].player.name)
                                     .font(.footnote)
-                                Text(game.result.results[i].score)
+                                Text(game.result.scores[i].score)
                             }
                         }
                     }

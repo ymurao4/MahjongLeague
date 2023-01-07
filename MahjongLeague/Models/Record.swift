@@ -4,9 +4,9 @@ import FirebaseFirestore
 
 struct Record: Codable, Identifiable, Equatable, Sendable {
     @DocumentID var id: String?
-    var results: [GameResult]
+    var scores: [Score]
 
-    struct GameResult: Codable, Identifiable, Equatable, Sendable {
+    struct Score: Codable, Identifiable, Equatable, Sendable {
         @DocumentID var id: String?
         var player: Player
         var score: String
