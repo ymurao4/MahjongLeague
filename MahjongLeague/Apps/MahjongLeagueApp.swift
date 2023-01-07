@@ -20,19 +20,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MahjongLeagueApp: App {
     let persistenceController = PersistenceController.shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
     var body: some Scene {
         WindowGroup {
             TabView {
-                GameView(
-                    store: Store(
-                        initialState: GameState(),
-                        reducer: gameReducer,
-                        environment: GameEnvironment(
-                            apiClient: FirebaseAPIClient.live,
-                            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
-                        )
-                    )
+                GameView(store: Store(
+                    initialState: GameFeature.State(),
+                    reducer: GameFeature()._printChanges())
                 )
                 .tabItem {
                     Text("記録")

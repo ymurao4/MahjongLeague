@@ -38,7 +38,7 @@ extension FirebaseAPIClient {
             guard let userId = Auth.auth().currentUser?.uid else { return GameResult(results: []) }
 
             let snapShot = try await db.collection(FirestorePathComponent.games.rawValue)
-                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+//                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
                 .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
                 .getDocuments()
             var games = snapShot.documents.compactMap { document in

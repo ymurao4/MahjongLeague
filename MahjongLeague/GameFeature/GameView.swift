@@ -2,10 +2,10 @@ import SwiftUI
 import ComposableArchitecture
 
 struct GameView: View {
-    let store: Store<GameState, GameAction>
+    let store: StoreOf<GameFeature>
     private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
     
-    init(store: Store<GameState, GameAction>) {
+    init(store: StoreOf<GameFeature>) {
         self.store = store
     }
     
@@ -23,9 +23,9 @@ struct GameView: View {
                                     VStack(alignment: .leading) {
                                         HStack {
                                             VStack(spacing: 8) {
-                                                //                                Text(game.date)
-                                                //                                    .font(.caption)
-                                                //                                    .lineLimit(1)
+                                                //Text(game.date)
+                                                //  .font(.caption)
+                                                //  .lineLimit(1)
                                                 HStack(spacing: 4) {
                                                     Text(game.isFourPeople ? "四麻" : "三麻")
                                                         .font(.caption)
@@ -73,13 +73,13 @@ struct GameView: View {
                 .sheet(
                     isPresented: viewStore.binding(
                         get: \.shoudOpenAddGame,
-                        send: GameAction.setAddGameView(isPresented:)
+                        send: GameFeature.Action.setAddGameView(isPresented:)
                     )
                 ) {
                     IfLetStore(
                         self.store.scope(
                             state: \.addGameState,
-                            action: GameAction.addGame
+                            action: GameFeature.Action.addGame
                         )
                     ) {
                         AddGameView(store: $0)
