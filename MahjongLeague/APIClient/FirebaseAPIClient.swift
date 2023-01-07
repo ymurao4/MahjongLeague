@@ -68,3 +68,14 @@ private let jsonDecoder: JSONDecoder = {
   decoder.dateDecodingStrategy = .formatted(formatter)
   return decoder
 }()
+
+private enum APIClientKey: DependencyKey {
+    static let liveValue = FirebaseAPIClient.live
+}
+
+extension DependencyValues {
+    var firebaseAPIClient: FirebaseAPIClient {
+        get { self[APIClientKey.self] }
+        set { self[APIClientKey.self] = newValue }
+    }
+}

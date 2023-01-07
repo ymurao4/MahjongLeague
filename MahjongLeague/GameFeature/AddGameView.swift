@@ -2,9 +2,9 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AddGameView: View {
-    let store: Store<AddGameState, AddGameAction>
+    let store: StoreOf<AddGameFeature>
     
-    init(store: Store<AddGameState, AddGameAction>) {
+    init(store: StoreOf<AddGameFeature>) {
         self.store = store
     }
     

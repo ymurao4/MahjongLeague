@@ -1,34 +1,24 @@
 import ComposableArchitecture
 import Foundation
 
-private enum APIClientKey: DependencyKey {
-    static let liveValue = FirebaseAPIClient.live
-}
-
-extension DependencyValues {
-    var firebaseAPIClient: FirebaseAPIClient {
-        get { self[APIClientKey.self] }
-        set { self[APIClientKey.self] = newValue }
-    }
-}
-
 struct GameFeature: ReducerProtocol {
     @Dependency(\.firebaseAPIClient) private var firebaseAPIClient
 
     struct State: Equatable {
-        var shoudOpenAddGame = false
         var games: [GameResult.Game] = []
-        var addGameState: AddGameState?
+        var optionalAddGameState: AddGameFeature.State?
+        var isSheetPresented = false
     }
 
     enum Action {
         case loadGames
-        case addGame(AddGameAction)
         case updateGame
         case deleteGame
-        case setAddGameView(isPresented: Bool)
+        case optionalAddGame(AddGameFeature.Action)
+        case setSheet(isPresented: Bool)
         case gameResponse(TaskResult<GameResult>)
 
+        case task
         case onAppear
         case onDisappear
     }
@@ -47,22 +37,25 @@ struct GameFeature: ReducerProtocol {
     }
 
     struct GameCancelId: Hashable {}
+    struct SheetCancelID {}
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
             case .loadGames:
                 return .none
-            case .addGame:
+            case .optionalAddGame:
                 return .none
             case .updateGame:
                 return .none
             case .deleteGame:
                 return .none
-            case .onAppear:
+            case .task:
                 return .task {
                     await Action.gameResponse(TaskResult { try await firebaseAPIClient.loadGames()} )
                 }
                 .cancellable(id: GameCancelId.self)
+            case .onAppear:
+                return .none
             case .onDisappear:
                 return .none
             case let .gameResponse(.success(response)):
@@ -71,13 +64,17 @@ struct GameFeature: ReducerProtocol {
             case .gameResponse(.failure(_)):
                 state.games = []
                 return .none
-            case .setAddGameView(let isPresented):
-                state.shoudOpenAddGame = isPresented
+            case .setSheet(isPresented: true):
+                state.isSheetPresented = true
+                state.optionalAddGameState = AddGameFeature.State()
+                return .none
+            case .setSheet(isPresented: false):
+                state.optionalAddGameState = nil
                 return .none
             }
         }
-        .ifLet(\.addGameState, action: /Action.addGame) {
-//            AddGameFeature()
+        .ifLet(\.optionalAddGameState, action: /Action.optionalAddGame) {
+            AddGameFeature()
         }
     }
 }

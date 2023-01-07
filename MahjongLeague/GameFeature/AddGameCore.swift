@@ -1,26 +1,18 @@
 import ComposableArchitecture
 import Foundation
 
-struct AddGameState: Equatable {
-}
-
-enum AddGameAction {
-}
-
-struct AddGameEnvironment {
-    var apiClilent: FirebaseAPIClient
-    var mainQueue: AnySchedulerOf<DispatchQueue>
-    
-    init(
-        apiClient: FirebaseAPIClient,
-        mainQueue: AnySchedulerOf<DispatchQueue>
-    ) {
-        self.apiClilent = apiClient
-        self.mainQueue = mainQueue
+struct AddGameFeature:  ReducerProtocol {
+    struct State: Equatable {
     }
-}
 
-typealias AddGameReducer = AnyReducer<AddGameState, AddGameAction, AddGameEnvironment>
-let addGameReducer = AddGameReducer { state, action, environment in
+    enum Action {
+    }
     struct AddGameCancelId: Hashable {}
+    var body: some ReducerProtocol<State, Action> {
+        Reduce { state, action in
+            switch action {
+
+            }
+        }
+    }
 }

@@ -57,7 +57,7 @@ struct GameView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     
                     Button {
-                        viewStore.send(.setAddGameView(isPresented: true))
+                        viewStore.send(.setSheet(isPresented: true))
                     } label: {
                         Image(systemName: "plus")
                             .padding()
@@ -72,22 +72,22 @@ struct GameView: View {
                 }
                 .sheet(
                     isPresented: viewStore.binding(
-                        get: \.shoudOpenAddGame,
-                        send: GameFeature.Action.setAddGameView(isPresented:)
+                        get: \.isSheetPresented,
+                        send: GameFeature.Action.setSheet(isPresented:)
                     )
                 ) {
                     IfLetStore(
                         self.store.scope(
-                            state: \.addGameState,
-                            action: GameFeature.Action.addGame
+                            state: \.optionalAddGameState,
+                            action: GameFeature.Action.optionalAddGame
                         )
                     ) {
                         AddGameView(store: $0)
                     }
                 }
                 .navigationTitle("麻雀")
-                .onAppear {
-                    viewStore.send(.onAppear)
+                .task {
+                    viewStore.send(.task)
                 }
             }
         }
