@@ -3,8 +3,7 @@ import ComposableArchitecture
 
 struct GameView: View {
     let store: StoreOf<GameFeature>
-    private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
-    
+
     init(store: StoreOf<GameFeature>) {
         self.store = store
     }
@@ -20,36 +19,7 @@ struct GameView: View {
                         } else {
                             List {
                                 ForEach(viewStore.state.games) { game in
-                                    VStack(alignment: .leading) {
-                                        HStack {
-                                            VStack(spacing: 8) {
-                                                //Text(game.date)
-                                                //  .font(.caption)
-                                                //  .lineLimit(1)
-                                                HStack(spacing: 4) {
-                                                    Text(game.isFourPeople ? "四麻" : "三麻")
-                                                        .font(.caption)
-                                                    HStack(spacing: 4) {
-                                                        Text("ウマ:")
-                                                            .font(.caption)
-                                                        Text(game.gameType)
-                                                            .font(.caption)
-                                                    }
-                                                }
-                                                .foregroundColor(.gray)
-                                            }
-                                            Divider()
-                                            LazyVGrid(columns: Array(repeating: columns, count: 2), alignment: .leading) {
-                                                ForEach(0..<game.result.results.count, id: \.self) { i in
-                                                    HStack {
-                                                        Text(game.result.results[i].player.name)
-                                                            .font(.footnote)
-                                                        Text(game.result.results[i].score)
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    GameCellView(game: game)
                                 }
                             }
                         }
@@ -86,8 +56,44 @@ struct GameView: View {
                     }
                 }
                 .navigationTitle("麻雀")
-                .task {
-                    viewStore.send(.task)
+                .task { viewStore.send(.task) }
+            }
+        }
+    }
+
+    private struct GameCellView: View {
+        let game: GameResult.Game
+        private let columns: GridItem = .init(.flexible(minimum: 100, maximum: 120))
+
+        var body: some View {
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack(spacing: 8) {
+                        //Text(game.date)
+                        //  .font(.caption)
+                        //  .lineLimit(1)
+                        HStack(spacing: 4) {
+                            Text(game.isFourPeople ? "四麻" : "三麻")
+                                .font(.caption)
+                            HStack(spacing: 4) {
+                                Text("ウマ:")
+                                    .font(.caption)
+                                Text(game.gameType)
+                                    .font(.caption)
+                            }
+                        }
+                        .foregroundColor(.gray)
+                    }
+                    Divider()
+                    LazyVGrid(columns: Array(repeating: columns, count: 2), alignment: .leading) {
+                        ForEach(0..<game.result.results.count, id: \.self) { i in
+                            HStack {
+                                Text(game.result.results[i].player.name)
+                                    .font(.footnote)
+                                Text(game.result.results[i].score)
+                            }
+                        }
+                    }
                 }
             }
         }

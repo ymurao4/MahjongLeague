@@ -8,13 +8,16 @@ import FirebaseAuth
 struct FirebaseAPIClient {
     var signInAnonymously: @Sendable() async throws -> Void
     var loadGames: @Sendable () async throws -> GameResult
+    var loadPlayers: @Sendable () async throws -> PlayerResult
     
     init(
         signInAnonymously: @escaping @Sendable() async throws -> Void,
-        loadGames: @escaping @Sendable () async throws -> GameResult
+        loadGames: @escaping @Sendable () async throws -> GameResult,
+        loadPlayers: @escaping @Sendable () async throws -> PlayerResult
     ) {
         self.signInAnonymously = signInAnonymously
         self.loadGames = loadGames
+        self.loadPlayers = loadPlayers
     }
 }
 
@@ -45,6 +48,16 @@ extension FirebaseAPIClient {
                 try? document.data(as: GameResult.Game.self)
             }
             return GameResult(results: games)
+        }, loadPlayers: {
+            guard let userId = Auth.auth().currentUser?.uid else { return PlayerResult(players: [])}
+            let snapShot = try await db.collection(FirestorePathComponent.players.rawValue)
+//                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+                .order(by: FirestorePathComponent.createdTime.rawValue, descending: false)
+                .getDocuments()
+            var players = snapShot.documents.compactMap { document in
+                try? document.data(as: Player.self)
+            }
+            return PlayerResult(players: players)
         }
     )
 }
@@ -52,6 +65,7 @@ extension FirebaseAPIClient {
 extension FirebaseAPIClient {
     enum FirestorePathComponent: String {
         case games = "games"
+        case players = "players"
         case user = "user"
         case userId = "userId"
         case createdTime = "createdTime"

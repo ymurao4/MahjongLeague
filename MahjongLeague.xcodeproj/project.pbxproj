@@ -32,6 +32,7 @@
 		04FBFED62967B05500421F32 /* GameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFED52967B05500421F32 /* GameCore.swift */; };
 		04FBFED92967C76400421F32 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFED82967C76400421F32 /* GameView.swift */; };
 		5D2E21F52960101900D96811 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2E21F42960101900D96811 /* Color+.swift */; };
+		5D739F442969407000D4A02C /* PlayerCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D739F432969407000D4A02C /* PlayerCore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		04FBFED52967B05500421F32 /* GameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCore.swift; sourceTree = "<group>"; };
 		04FBFED82967C76400421F32 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		5D2E21F42960101900D96811 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		5D739F432969407000D4A02C /* PlayerCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				04BB456529680EE0006A55E4 /* Apps */,
 				04FBFEC32967A0D300421F32 /* APIClient */,
 				04FBFED72967B05A00421F32 /* GameFeature */,
+				5D739F452969407800D4A02C /* PlayerFeature */,
 				0497CCB6289DE78D00DA7E2F /* Models */,
 				5D2E21F62960101D00D96811 /* Utils */,
 				0497CCA5289DE5E800DA7E2F /* Assets.xcassets */,
@@ -172,6 +175,14 @@
 				04FBFEBF2966C14D00421F32 /* UIApplication+.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		5D739F452969407800D4A02C /* PlayerFeature */ = {
+			isa = PBXGroup;
+			children = (
+				5D739F432969407000D4A02C /* PlayerCore.swift */,
+			);
+			path = PlayerFeature;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +282,7 @@
 				04FBFECC2967A41F00421F32 /* AppUser.swift in Sources */,
 				0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */,
 				04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */,
+				5D739F442969407000D4A02C /* PlayerCore.swift in Sources */,
 				04FBFED62967B05500421F32 /* GameCore.swift in Sources */,
 				0497CCA2289DE5E700DA7E2F /* MahjongLeagueApp.swift in Sources */,
 			);

@@ -38,6 +38,7 @@ struct GameFeature: ReducerProtocol {
 
     struct GameCancelId: Hashable {}
     struct SheetCancelID {}
+    struct CancelID {}
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
@@ -69,6 +70,7 @@ struct GameFeature: ReducerProtocol {
                 state.optionalAddGameState = AddGameFeature.State()
                 return .none
             case .setSheet(isPresented: false):
+                state.isSheetPresented = false
                 state.optionalAddGameState = nil
                 return .none
             }
