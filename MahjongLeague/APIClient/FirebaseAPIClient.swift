@@ -9,15 +9,18 @@ struct FirebaseAPIClient {
     var signInAnonymously: @Sendable() async throws -> Void
     var loadGames: @Sendable () async throws -> GameResult
     var loadPlayers: @Sendable () async throws -> PlayerResult
+    var submitGame: @Sendable (_ game: Game) async throws -> None
     
     init(
         signInAnonymously: @escaping @Sendable() async throws -> Void,
         loadGames: @escaping @Sendable () async throws -> GameResult,
-        loadPlayers: @escaping @Sendable () async throws -> PlayerResult
+        loadPlayers: @escaping @Sendable () async throws -> PlayerResult,
+        submitGame: @escaping @Sendable (_ game: Game) async throws -> None
     ) {
         self.signInAnonymously = signInAnonymously
         self.loadGames = loadGames
         self.loadPlayers = loadPlayers
+        self.submitGame = submitGame
     }
 }
 
@@ -58,6 +61,13 @@ extension FirebaseAPIClient {
                 try? document.data(as: Player.self)
             }
             return PlayerResult(players: players)
+        }, submitGame: { game in
+            guard let userId = Auth.auth().currentUser?.uid else { return None() }
+            var addedGame = game
+            addedGame.userId = userId
+            let _ = try await db.collection(FirestorePathComponent.games.rawValue)
+                .addDocument(from: addedGame)
+            return None()
         }
     )
 }

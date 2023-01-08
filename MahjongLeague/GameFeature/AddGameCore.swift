@@ -18,6 +18,7 @@ struct AddGameFeature: ReducerProtocol {
         var isHalfGame: Bool = true
         var scores: [Record.Score] = []
         var scoreFields: [String] = []
+        var alert: AlertState<Action>?
         var errorType: AddGameError?
         
         enum Field: String, Hashable {
@@ -30,6 +31,8 @@ struct AddGameFeature: ReducerProtocol {
         case loadPlayers
         case playerResponse(TaskResult<PlayerResult>)
         case submitGame
+        case submitGameResponse(TaskResult<None>)
+        
         case selectDate(Date)
         case playerCountChanged(Int)
         case gameTypeChanged(GameType)
@@ -40,6 +43,7 @@ struct AddGameFeature: ReducerProtocol {
         case binding(BindingAction<State>)
         case focusTextField
         case unFocusTextField
+        case alertDismissed
     }
     
     struct AddGameCancelId: Hashable {}
@@ -63,16 +67,36 @@ struct AddGameFeature: ReducerProtocol {
                 state.players = []
                 return .none
             case .submitGame:
-                guard state.playerCount == state.scores.count else {
-                    state.errorType = .playerCount
+                let message = validateScore()
+                
+                if state.errorType != nil {
+                    state.alert = AlertState {
+                        TextState("Alert!")
+                    } actions: {
+                        ButtonState(role: .cancel) {
+                            TextState("Cancel")
+                        }
+                    } message: {
+                        TextState(message)
+                    }
                     return .none
                 }
-                var game: Game = .init(
+                
+                let game: Game = .init(
+                    date: state.date,
                     result: Record(scores: state.scores),
                     isHalfRound: state.isHalfGame,
                     isFourPeople: state.playerCount == 4,
                     gameType: state.gameType.rawValue
                 )
+                return .task {
+                    await Action.submitGameResponse(TaskResult {
+                        try await firebaseAPIClient.submitGame(game)
+                    })
+                }
+            case .submitGameResponse(.success):
+                return .none
+            case .submitGameResponse(.failure):
                 return .none
             case let .selectDate(date):
                 state.date = date
@@ -111,32 +135,45 @@ struct AddGameFeature: ReducerProtocol {
             case .unFocusTextField:
                 state.focusedField = nil
                 return .none
+            case .alertDismissed:
+                state.alert = nil
+                return .none
             }
-        }
-    }
-}
-
-
-struct ScoreFeature: ReducerProtocol {
-    struct State: Equatable {
-        var player: Player
-        var point: String
-    }
-    
-    enum Action {
-        case addScore(Record.Score)
-        case scoreChanged(String)
-    }
-    
-    func reduce(into state: inout State, action: Action) -> ComposableArchitecture.EffectTask<Action> {
-        switch action {
-        case let .addScore(score):
-            state.player = score.player
-            state.point = score.point
-            return .none
-        case let .scoreChanged(point):
-            state.point = point
-            return .none
+            
+            func validateScore() -> String {
+                state.errorType = nil
+                
+                var totalScore: Int = 0
+                let expectedTotalScore = state.playerCount == 4 ? 100000 : 105000
+                
+                for score in state.scores {
+                    let point = score.point.trimmingCharacters(in: .whitespaces)
+                    if point.isEmpty || Int(point) == nil {
+                        state.errorType = .emptyScore
+                    }
+                    totalScore += Int(score.point) ?? 0
+                }
+                
+                if state.playerCount != state.scores.count {
+                    state.errorType = .playerCount
+                } else if totalScore != expectedTotalScore {
+                    state.errorType = .totalScore
+                }
+                
+                var message: String
+                switch state.errorType {
+                case .playerCount:
+                    message = "人数に過不足があります"
+                case .totalScore:
+                    let diff = expectedTotalScore - totalScore
+                    message = "合計点に過不足があります\(diff)"
+                case .emptyScore:
+                    message = "点数欄に空文字もしくは数字以外が入力されています"
+                case .none:
+                    message = ""
+                }
+                return message
+            }
         }
     }
 }

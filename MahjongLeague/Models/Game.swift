@@ -10,7 +10,7 @@ struct GameResult: Codable, Equatable, Sendable {
 struct Game: Codable, Identifiable, Equatable, Sendable {
     @DocumentID var id: String?
     @ServerTimestamp var createdTime: Timestamp?
-    var date: Date?
+    var date: Date
     var result: Record
     var isHalfRound: Bool
     var isFourPeople: Bool
