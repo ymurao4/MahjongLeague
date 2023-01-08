@@ -20,7 +20,7 @@
 		0497CCC9289F4E5200DA7E2F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC8289F4E5200DA7E2F /* FirebaseFirestoreSwift */; };
 		04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4566296813A4006A55E4 /* AddGameView.swift */; };
 		04BB456929681C0F006A55E4 /* AddGameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456829681C0F006A55E4 /* AddGameCore.swift */; };
-		04FBFEC02966C14D00421F32 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEBF2966C14D00421F32 /* UIApplication+.swift */; };
+		04BB456B296AB04F006A55E4 /* DateFormatte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456A296AB04F006A55E4 /* DateFormatte.swift */; };
 		04FBFEC22967A02300421F32 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEC12967A02300421F32 /* FirebaseAPIClient.swift */; };
 		04FBFEC62967A1CC00421F32 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 04FBFEC52967A1CC00421F32 /* ComposableArchitecture */; };
 		04FBFEC82967A2DC00421F32 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEC72967A2DC00421F32 /* APIError.swift */; };
@@ -48,7 +48,7 @@
 		0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04BB4566296813A4006A55E4 /* AddGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameView.swift; sourceTree = "<group>"; };
 		04BB456829681C0F006A55E4 /* AddGameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameCore.swift; sourceTree = "<group>"; };
-		04FBFEBF2966C14D00421F32 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		04BB456A296AB04F006A55E4 /* DateFormatte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatte.swift; sourceTree = "<group>"; };
 		04FBFEC12967A02300421F32 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		04FBFEC72967A2DC00421F32 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		04FBFEC92967A34800421F32 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				5D2E21F42960101900D96811 /* Color+.swift */,
-				04FBFEBF2966C14D00421F32 /* UIApplication+.swift */,
+				04BB456A296AB04F006A55E4 /* DateFormatte.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -269,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04FBFEC22967A02300421F32 /* FirebaseAPIClient.swift in Sources */,
+				04BB456B296AB04F006A55E4 /* DateFormatte.swift in Sources */,
 				5D2E21F52960101900D96811 /* Color+.swift in Sources */,
 				04FBFED92967C76400421F32 /* GameView.swift in Sources */,
 				04FBFECA2967A34800421F32 /* None.swift in Sources */,
@@ -278,7 +279,6 @@
 				0497CCAB289DE5E800DA7E2F /* Persistence.swift in Sources */,
 				04BB456929681C0F006A55E4 /* AddGameCore.swift in Sources */,
 				0497CCC2289DE87A00DA7E2F /* Player.swift in Sources */,
-				04FBFEC02966C14D00421F32 /* UIApplication+.swift in Sources */,
 				04FBFECC2967A41F00421F32 /* AppUser.swift in Sources */,
 				0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */,
 				04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */,

@@ -11,16 +11,14 @@ struct GameFeature: ReducerProtocol {
     }
 
     enum Action {
-        case loadGames
+        case gameResponse(TaskResult<GameResult>)
         case updateGame
-        case deleteGame
+        case deleteGame(String)
+        case deleteGameResponse(TaskResult<None>)
         case optionalAddGame(AddGameFeature.Action)
         case setSheet(isPresented: Bool)
-        case gameResponse(TaskResult<GameResult>)
 
         case task
-        case onAppear
-        case onDisappear
     }
 
     struct Environment {
@@ -42,13 +40,17 @@ struct GameFeature: ReducerProtocol {
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
-            case .loadGames:
-                return .none
             case .optionalAddGame:
                 return .none
             case .updateGame:
                 return .none
-            case .deleteGame:
+            case let .deleteGame(gameId):
+                return .task {
+                    await Action.deleteGameResponse(TaskResult { try await firebaseAPIClient.deleteGame(gameId)})
+                }
+            case .deleteGameResponse(.success):
+                return .none
+            case .deleteGameResponse(.failure):
                 return .none
             case .task:
                 return .run { send in
@@ -58,10 +60,6 @@ struct GameFeature: ReducerProtocol {
                 } catch: { error, send in
                     await send(.gameResponse(.failure(error)))
                 }
-            case .onAppear:
-                return .none
-            case .onDisappear:
-                return .none
             case let .gameResponse(.success(response)):
                 state.games = response.results
                 return .none

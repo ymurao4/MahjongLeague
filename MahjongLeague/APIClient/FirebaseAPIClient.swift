@@ -10,23 +10,27 @@ struct FirebaseAPIClient {
     var loadGames: @Sendable () async throws -> AsyncThrowingStream<GameResult, Error>
     var loadPlayers: @Sendable () async throws -> PlayerResult
     var submitGame: @Sendable (_ game: Game) async throws -> None
+    var deleteGame: @Sendable (_ gameId: String) async throws -> None
     
     init(
         signInAnonymously: @escaping @Sendable() async throws -> Void,
         loadGames: @escaping @Sendable () async throws -> AsyncThrowingStream<GameResult, Error>,
         loadPlayers: @escaping @Sendable () async throws -> PlayerResult,
-        submitGame: @escaping @Sendable (_ game: Game) async throws -> None
+        submitGame: @escaping @Sendable (_ game: Game) async throws -> None,
+        deleteGame: @escaping @Sendable (_ gameId: String) async throws -> None
     ) {
         self.signInAnonymously = signInAnonymously
         self.loadGames = loadGames
         self.loadPlayers = loadPlayers
         self.submitGame = submitGame
+        self.deleteGame = deleteGame
     }
 }
 
 extension FirebaseAPIClient {
     static var appUser: AppUser = .init(id: "", name: "", status: .uninitialized)
     static let db: Firestore = Firestore.firestore()
+    static let userId = Auth.auth().currentUser?.uid
     
     static let live = Self(
         signInAnonymously: {
@@ -41,10 +45,9 @@ extension FirebaseAPIClient {
                 }
                 .eraseToEffect()
         }, loadGames: {
-//            guard let userId = Auth.auth().currentUser?.uid else { return }
             AsyncThrowingStream { continuation in
                 let listener = db.collection(FirestorePathComponent.games.rawValue)
-//                    .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+                    .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
                     .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
                     .addSnapshotListener { querySnapshot, error in
                         if let error {
@@ -67,9 +70,8 @@ extension FirebaseAPIClient {
                 }
             }
         }, loadPlayers: {
-            guard let userId = Auth.auth().currentUser?.uid else { return PlayerResult(players: [])}
             let snapShot = try await db.collection(FirestorePathComponent.players.rawValue)
-            //                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+//                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
                 .order(by: FirestorePathComponent.createdTime.rawValue, descending: false)
                 .getDocuments()
             var players = snapShot.documents.compactMap { document in
@@ -80,8 +82,17 @@ extension FirebaseAPIClient {
             guard let userId = Auth.auth().currentUser?.uid else { return None() }
             var addedGame = game
             addedGame.userId = userId
-            let _ = try await db.collection(FirestorePathComponent.games.rawValue)
+            let _ = try db.collection(FirestorePathComponent.games.rawValue)
                 .addDocument(from: addedGame)
+            return None()
+        }, deleteGame: { id in
+            let _ = db.collection(FirestorePathComponent.games.rawValue)
+                .document(id)
+                .delete() { error in
+                    if let error {
+                    } else {
+                    }
+                }
             return None()
         }
     )

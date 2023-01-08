@@ -20,6 +20,16 @@ struct GameView: View {
                             List {
                                 ForEach(viewStore.state.games) { game in
                                     GameCellView(game: game)
+                                        .swipeActions {
+                                            Button {
+                                                if let id = game.id {
+                                                    viewStore.send(.deleteGame(id))
+                                                }
+                                            } label: {
+                                                Image(systemName: "trash")
+                                            }
+                                            .tint(.red)
+                                        }
                                 }
                             }
                         }
@@ -69,9 +79,9 @@ struct GameView: View {
             VStack(alignment: .leading) {
                 HStack {
                     VStack(spacing: 8) {
-                        //Text(game.date)
-                        //  .font(.caption)
-                        //  .lineLimit(1)
+                        Text(game.date.toString())
+                            .font(.caption)
+                            .lineLimit(1)
                         HStack(spacing: 4) {
                             Text(game.isFourPeople ? "四麻" : "三麻")
                                 .font(.caption)
