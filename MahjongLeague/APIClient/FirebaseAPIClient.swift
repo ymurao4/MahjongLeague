@@ -7,13 +7,13 @@ import FirebaseAuth
 
 struct FirebaseAPIClient {
     var signInAnonymously: @Sendable() async throws -> Void
-    var loadGames: @Sendable () async throws -> GameResult
+    var loadGames: @Sendable () async throws -> AsyncThrowingStream<GameResult, Error>
     var loadPlayers: @Sendable () async throws -> PlayerResult
     var submitGame: @Sendable (_ game: Game) async throws -> None
     
     init(
         signInAnonymously: @escaping @Sendable() async throws -> Void,
-        loadGames: @escaping @Sendable () async throws -> GameResult,
+        loadGames: @escaping @Sendable () async throws -> AsyncThrowingStream<GameResult, Error>,
         loadPlayers: @escaping @Sendable () async throws -> PlayerResult,
         submitGame: @escaping @Sendable (_ game: Game) async throws -> None
     ) {
@@ -41,20 +41,35 @@ extension FirebaseAPIClient {
                 }
                 .eraseToEffect()
         }, loadGames: {
-            guard let userId = Auth.auth().currentUser?.uid else { return GameResult(results: []) }
-
-            let snapShot = try await db.collection(FirestorePathComponent.games.rawValue)
-                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
-                .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
-                .getDocuments()
-            var games = snapShot.documents.compactMap { document in
-                try? document.data(as: Game.self)
+//            guard let userId = Auth.auth().currentUser?.uid else { return }
+            AsyncThrowingStream { continuation in
+                let listener = db.collection(FirestorePathComponent.games.rawValue)
+//                    .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+                    .order(by: FirestorePathComponent.createdTime.rawValue, descending: true)
+                    .addSnapshotListener { querySnapshot, error in
+                        if let error {
+                            continuation.finish(throwing: error)
+                        }
+                        if let querySnapshot {
+                            do {
+                                let games = try querySnapshot.documents.compactMap { document in
+                                    try document.data(as: Game.self)
+                                }
+                                let states = GameResult(results: games)
+                                continuation.yield(states)
+                            } catch {
+                                continuation.finish(throwing: error)
+                            }
+                        }
+                    }
+                continuation.onTermination = { @Sendable _ in
+                    listener.remove()
+                }
             }
-            return GameResult(results: games)
         }, loadPlayers: {
             guard let userId = Auth.auth().currentUser?.uid else { return PlayerResult(players: [])}
             let snapShot = try await db.collection(FirestorePathComponent.players.rawValue)
-//                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
+            //                .whereField(FirestorePathComponent.userId.rawValue, isEqualTo: userId as Any)
                 .order(by: FirestorePathComponent.createdTime.rawValue, descending: false)
                 .getDocuments()
             var players = snapShot.documents.compactMap { document in
@@ -83,14 +98,14 @@ extension FirebaseAPIClient {
 }
 
 private let jsonDecoder: JSONDecoder = {
-  let decoder = JSONDecoder()
-  let formatter = DateFormatter()
-  formatter.calendar = Calendar(identifier: .iso8601)
-  formatter.dateFormat = "yyyy-MM-dd"
-  formatter.timeZone = TimeZone(secondsFromGMT: 0)
-  formatter.locale = Locale(identifier: "en_US_POSIX")
-  decoder.dateDecodingStrategy = .formatted(formatter)
-  return decoder
+    let decoder = JSONDecoder()
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: .iso8601)
+    formatter.dateFormat = "yyyy-MM-dd"
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    decoder.dateDecodingStrategy = .formatted(formatter)
+    return decoder
 }()
 
 private enum APIClientKey: DependencyKey {

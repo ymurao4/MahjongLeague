@@ -51,10 +51,13 @@ struct GameFeature: ReducerProtocol {
             case .deleteGame:
                 return .none
             case .task:
-                return .task {
-                    await Action.gameResponse(TaskResult { try await firebaseAPIClient.loadGames()} )
+                return .run { send in
+                    for try await result in try await firebaseAPIClient.loadGames() {
+                        await send(.gameResponse(.success(result)))
+                    }
+                } catch: { error, send in
+                    await send(.gameResponse(.failure(error)))
                 }
-                .cancellable(id: GameCancelId.self)
             case .onAppear:
                 return .none
             case .onDisappear:
