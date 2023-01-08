@@ -20,6 +20,7 @@ struct AddGameFeature: ReducerProtocol {
         var scoreFields: [String] = []
         var alert: AlertState<Action>?
         var errorType: AddGameError?
+        var submitResult: Bool = false
         
         enum Field: String, Hashable {
             case score
@@ -71,10 +72,10 @@ struct AddGameFeature: ReducerProtocol {
                 
                 if state.errorType != nil {
                     state.alert = AlertState {
-                        TextState("Alert!")
+                        TextState("不正な値を検知")
                     } actions: {
                         ButtonState(role: .cancel) {
-                            TextState("Cancel")
+                            TextState("OK")
                         }
                     } message: {
                         TextState(message)
@@ -95,8 +96,10 @@ struct AddGameFeature: ReducerProtocol {
                     })
                 }
             case .submitGameResponse(.success):
+                state.submitResult = true
                 return .none
             case .submitGameResponse(.failure):
+                state.submitResult = false
                 return .none
             case let .selectDate(date):
                 state.date = date

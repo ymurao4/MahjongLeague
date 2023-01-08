@@ -4,6 +4,7 @@ import ComposableArchitecture
 struct AddGameView: View {
     let store: StoreOf<AddGameFeature>
     @FocusState var focusedField: AddGameFeature.State.Field?
+    @Environment(\.dismiss) var dismiss
 
     private let columns: GridItem = .init(.fixed(56))
     
@@ -116,6 +117,11 @@ struct AddGameView: View {
                 }
                 .onAppear {
                     viewStore.send(.onAppear)
+                }
+                .onChange(of: viewStore.state.submitResult) { value in
+                    if value {
+                        dismiss()
+                    }
                 }
             }
             .synchronize(viewStore.binding(\.$focusedField), self.$focusedField)
