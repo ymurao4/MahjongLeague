@@ -1,29 +1,50 @@
 import ComposableArchitecture
 import Foundation
 
+enum AddGameError: Error {
+    case playerCount
+    case totalScore
+    case emptyScore
+}
+
 struct AddGameFeature: ReducerProtocol {
     @Dependency(\.firebaseAPIClient) private var firebaseAPIClient
     struct State: Equatable {
+        @BindableState var focusedField: Field?
+        var date: Date = Date.now
         var players: [Player] = []
-        var peopleCount: Int = 4
+        var playerCount: Int = 4
         var gameType: GameType = .oneThree
+        var isHalfGame: Bool = true
         var scores: [Record.Score] = []
         var scoreFields: [String] = []
+        var errorType: AddGameError?
+        
+        enum Field: String, Hashable {
+            case score
+        }
     }
-
-    enum Action {
+    
+    enum Action: BindableAction, Equatable {
         case onAppear
         case loadPlayers
         case playerResponse(TaskResult<PlayerResult>)
-        case addGame(Game)
-        case peopleCountChanged(Int)
+        case submitGame
+        case selectDate(Date)
+        case playerCountChanged(Int)
         case gameTypeChanged(GameType)
+        case isHalfGameChanged(Bool)
         case addScore(Player)
-        case addScoreField(Int, String)
+        case removeScore(Int)
+        case scoreFieldChanged(Int, String)
+        case binding(BindingAction<State>)
+        case focusTextField
+        case unFocusTextField
     }
-
+    
     struct AddGameCancelId: Hashable {}
     var body: some ReducerProtocol<State, Action> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -41,16 +62,32 @@ struct AddGameFeature: ReducerProtocol {
             case .playerResponse(.failure(_)):
                 state.players = []
                 return .none
-            case let .addGame(game):
+            case .submitGame:
+                guard state.playerCount == state.scores.count else {
+                    state.errorType = .playerCount
+                    return .none
+                }
+                var game: Game = .init(
+                    result: Record(scores: state.scores),
+                    isHalfRound: state.isHalfGame,
+                    isFourPeople: state.playerCount == 4,
+                    gameType: state.gameType.rawValue
+                )
                 return .none
-            case let .peopleCountChanged(count):
-                state.peopleCount = count
+            case let .selectDate(date):
+                state.date = date
+                return .none
+            case let .playerCountChanged(count):
+                state.playerCount = count
                 return .none
             case let .gameTypeChanged(gameType):
                 state.gameType = gameType
                 return .none
+            case let .isHalfGameChanged(isHalfGame):
+                state.isHalfGame = isHalfGame
+                return .none
             case let .addScore(player):
-                if state.scores.count < state.peopleCount {
+                if state.scores.count < state.playerCount {
                     for addedScore in state.scores {
                         if addedScore.player.id == player.id {
                             return .none
@@ -60,8 +97,19 @@ struct AddGameFeature: ReducerProtocol {
                     state.scores.append(score)
                 }
                 return .none
-            case let .addScoreField(i, text):
+            case let .removeScore(i):
+                state.scores.remove(at: i)
+                return .none
+            case let .scoreFieldChanged(i, text):
                 state.scores[i].point = text
+                return .none
+            case .binding:
+                return .none
+            case .focusTextField:
+                state.focusedField = .score
+                return .none
+            case .unFocusTextField:
+                state.focusedField = nil
                 return .none
             }
         }
