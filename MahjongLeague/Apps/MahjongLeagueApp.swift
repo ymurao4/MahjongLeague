@@ -1,4 +1,5 @@
 import SwiftUI
+import ComposableArchitecture
 import FirebaseCore
 import Firebase
 
@@ -19,11 +20,26 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MahjongLeagueApp: App {
     let persistenceController = PersistenceController.shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabView {
+                GameView(store: Store(
+                    initialState: GameFeature.State(),
+                    reducer: GameFeature()._printChanges())
+                )
+                .tabItem {
+                    Text("記録")
+                    Image(systemName: "pencil")
+                }
+                Text("hoge")
+                    .tabItem {
+                        Text("分析")
+                        Image(systemName: "doc.text")
+                    }
+            }
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .tint(Color.primary)
         }
     }
 }
