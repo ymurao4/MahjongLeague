@@ -24,6 +24,7 @@ struct PlayerFeature: ReducerProtocol {
         case setTextField(isPresented: Bool)
         case textFieldChanged(String)
         case alertDismissed
+        case setPopupPresented(isPresented: Bool)
     }
     
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -100,6 +101,9 @@ struct PlayerFeature: ReducerProtocol {
             return .none
         case .alertDismissed:
             state.alert = nil
+            return .none
+        case let .setPopupPresented(isPresented: isPresented):
+            state.isPopupPresented = isPresented
             return .none
         }
     }

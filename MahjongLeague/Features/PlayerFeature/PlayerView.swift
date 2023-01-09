@@ -57,7 +57,7 @@ struct PlayersView: View {
                 }
                 
                 if viewStore.isPopupPresented {
-                    PopUpView(message: viewStore.popupMessage)
+                    popupView(message: viewStore.popupMessage, viewStore: viewStore)
                         .padding(.horizontal, 16)
                 }
             }
@@ -77,5 +77,30 @@ struct PlayersView: View {
                 viewStore.send(.task)
             }
         }
+    }
+    
+    func popupView(message: String, viewStore: ViewStore<PlayerFeature.State, PlayerFeature.Action>) -> some View {
+        HStack {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(Color.primary)
+            Text(message)
+                .font(.caption)
+            Spacer()
+            Button {
+                viewStore.send(.setPopupPresented(isPresented: false))
+            } label: {
+                Text("OK")
+            }
+
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.primary, lineWidth: 4)
+        )
+        .background(Color.white)
+        .cornerRadius(16)
     }
 }

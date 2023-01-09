@@ -1,4 +1,5 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct PopUpView: View {
     let message: String
@@ -8,6 +9,7 @@ struct PopUpView: View {
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(Color.primary)
             Text(message)
+                .font(.caption)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 6)
