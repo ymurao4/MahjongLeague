@@ -9,7 +9,7 @@ struct GameView: View {
     }
     
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
                 ZStack(alignment: .bottomTrailing) {
                     VStack {

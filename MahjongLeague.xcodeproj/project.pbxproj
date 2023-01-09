@@ -18,9 +18,12 @@
 		0497CCC4289F4DED00DA7E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */; };
 		0497CCC7289F4E5200DA7E2F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC6289F4E5200DA7E2F /* FirebaseAuth */; };
 		0497CCC9289F4E5200DA7E2F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0497CCC8289F4E5200DA7E2F /* FirebaseFirestoreSwift */; };
+		04ACC6D8296BE8C40016B7F8 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACC6D7296BE8C40016B7F8 /* PopupView.swift */; };
 		04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB4566296813A4006A55E4 /* AddGameView.swift */; };
 		04BB456929681C0F006A55E4 /* AddGameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456829681C0F006A55E4 /* AddGameCore.swift */; };
 		04BB456B296AB04F006A55E4 /* DateFormatte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456A296AB04F006A55E4 /* DateFormatte.swift */; };
+		04BB456E296AB74A006A55E4 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456D296AB74A006A55E4 /* PlayerView.swift */; };
+		04BB4570296ABC93006A55E4 /* PlayersCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB456F296ABC93006A55E4 /* PlayersCore.swift */; };
 		04FBFEC22967A02300421F32 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEC12967A02300421F32 /* FirebaseAPIClient.swift */; };
 		04FBFEC62967A1CC00421F32 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 04FBFEC52967A1CC00421F32 /* ComposableArchitecture */; };
 		04FBFEC82967A2DC00421F32 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FBFEC72967A2DC00421F32 /* APIError.swift */; };
@@ -46,9 +49,12 @@
 		0497CCBD289DE82500DA7E2F /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		0497CCC1289DE87A00DA7E2F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0497CCC3289F4DED00DA7E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04ACC6D7296BE8C40016B7F8 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		04BB4566296813A4006A55E4 /* AddGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameView.swift; sourceTree = "<group>"; };
 		04BB456829681C0F006A55E4 /* AddGameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameCore.swift; sourceTree = "<group>"; };
 		04BB456A296AB04F006A55E4 /* DateFormatte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatte.swift; sourceTree = "<group>"; };
+		04BB456D296AB74A006A55E4 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		04BB456F296ABC93006A55E4 /* PlayersCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersCore.swift; sourceTree = "<group>"; };
 		04FBFEC12967A02300421F32 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		04FBFEC72967A2DC00421F32 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		04FBFEC92967A34800421F32 /* None.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = None.swift; sourceTree = "<group>"; };
@@ -100,8 +106,7 @@
 				04FBFED02967A59B00421F32 /* Info.plist */,
 				04BB456529680EE0006A55E4 /* Apps */,
 				04FBFEC32967A0D300421F32 /* APIClient */,
-				04FBFED72967B05A00421F32 /* GameFeature */,
-				5D739F452969407800D4A02C /* PlayerFeature */,
+				04BB456C296AB375006A55E4 /* Features */,
 				0497CCB6289DE78D00DA7E2F /* Models */,
 				5D2E21F62960101D00D96811 /* Utils */,
 				0497CCA5289DE5E800DA7E2F /* Assets.xcassets */,
@@ -141,6 +146,15 @@
 			path = Apps;
 			sourceTree = "<group>";
 		};
+		04BB456C296AB375006A55E4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				04FBFED72967B05A00421F32 /* GameFeature */,
+				5D739F452969407800D4A02C /* PlayerFeature */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 		04FBFEC32967A0D300421F32 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +187,7 @@
 			children = (
 				5D2E21F42960101900D96811 /* Color+.swift */,
 				04BB456A296AB04F006A55E4 /* DateFormatte.swift */,
+				04ACC6D7296BE8C40016B7F8 /* PopupView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -181,6 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				5D739F432969407000D4A02C /* PlayerCore.swift */,
+				04BB456D296AB74A006A55E4 /* PlayerView.swift */,
+				04BB456F296ABC93006A55E4 /* PlayersCore.swift */,
 			);
 			path = PlayerFeature;
 			sourceTree = "<group>";
@@ -269,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04FBFEC22967A02300421F32 /* FirebaseAPIClient.swift in Sources */,
+				04BB4570296ABC93006A55E4 /* PlayersCore.swift in Sources */,
 				04BB456B296AB04F006A55E4 /* DateFormatte.swift in Sources */,
 				5D2E21F52960101900D96811 /* Color+.swift in Sources */,
 				04FBFED92967C76400421F32 /* GameView.swift in Sources */,
@@ -280,7 +298,9 @@
 				04BB456929681C0F006A55E4 /* AddGameCore.swift in Sources */,
 				0497CCC2289DE87A00DA7E2F /* Player.swift in Sources */,
 				04FBFECC2967A41F00421F32 /* AppUser.swift in Sources */,
+				04ACC6D8296BE8C40016B7F8 /* PopupView.swift in Sources */,
 				0497CCAE289DE5E800DA7E2F /* MahjongLeague.xcdatamodeld in Sources */,
+				04BB456E296AB74A006A55E4 /* PlayerView.swift in Sources */,
 				04BB4567296813A4006A55E4 /* AddGameView.swift in Sources */,
 				5D739F442969407000D4A02C /* PlayerCore.swift in Sources */,
 				04FBFED62967B05500421F32 /* GameCore.swift in Sources */,

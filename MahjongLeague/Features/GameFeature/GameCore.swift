@@ -21,22 +21,6 @@ struct GameFeature: ReducerProtocol {
         case task
     }
 
-    struct Environment {
-        var apiClient: FirebaseAPIClient
-        var mainQueue: AnySchedulerOf<DispatchQueue>
-
-        init(
-            apiClient: FirebaseAPIClient,
-            mainQueue: AnySchedulerOf<DispatchQueue>
-        ) {
-            self.apiClient = apiClient
-            self.mainQueue = mainQueue
-        }
-    }
-
-    struct GameCancelId: Hashable {}
-    struct SheetCancelID {}
-    struct CancelID {}
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
@@ -48,10 +32,13 @@ struct GameFeature: ReducerProtocol {
                 return .task {
                     await Action.deleteGameResponse(TaskResult { try await firebaseAPIClient.deleteGame(gameId)})
                 }
-            case .deleteGameResponse(.success):
-                return .none
-            case .deleteGameResponse(.failure):
-                return .none
+            case let .deleteGameResponse(result):
+                switch result {
+                case .success:
+                    return .none
+                case .failure:
+                    return .none
+                }
             case .task:
                 return .run { send in
                     for try await result in try await firebaseAPIClient.loadGames() {
@@ -60,12 +47,15 @@ struct GameFeature: ReducerProtocol {
                 } catch: { error, send in
                     await send(.gameResponse(.failure(error)))
                 }
-            case let .gameResponse(.success(response)):
-                state.games = response.results
-                return .none
-            case .gameResponse(.failure(_)):
-                state.games = []
-                return .none
+            case let .gameResponse(result):
+                switch result {
+                case let .success(response):
+                    state.games = response.results
+                    return .none
+                case .failure:
+                    state.games = []
+                    return .none
+                }
             case .setSheet(isPresented: true):
                 state.isSheetPresented = true
                 state.optionalAddGameState = AddGameFeature.State()

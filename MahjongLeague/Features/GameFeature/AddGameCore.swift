@@ -11,8 +11,12 @@ struct AddGameFeature: ReducerProtocol {
     @Dependency(\.firebaseAPIClient) private var firebaseAPIClient
     struct State: Equatable {
         @BindableState var focusedField: Field?
+        var optionalPlayerState: PlayerFeature.State?
+        var isPlayerViewPresented = false
+        
         var date: Date = Date.now
         var players: [Player] = []
+        
         var playerCount: Int = 4
         var gameType: GameType = .oneThree
         var isHalfGame: Bool = true
@@ -28,11 +32,12 @@ struct AddGameFeature: ReducerProtocol {
     }
     
     enum Action: BindableAction, Equatable {
-        case onAppear
-        case loadPlayers
+        case task
         case playerResponse(TaskResult<PlayerResult>)
         case submitGame
         case submitGameResponse(TaskResult<None>)
+        case optionalPlayer(PlayerFeature.Action)
+        case setPlayerView(isPresented: Bool)
         
         case selectDate(Date)
         case playerCountChanged(Int)
@@ -52,27 +57,28 @@ struct AddGameFeature: ReducerProtocol {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                return .task {
-                    await Action.playerResponse(TaskResult {
-                        try await firebaseAPIClient.loadPlayers()
-                    })
+            case .task:
+                return .run { send in
+                    for try await result in try await firebaseAPIClient.loadPlayers() {
+                        await send(.playerResponse(.success(result)))
+                    }
+                } catch: { error, send in
+                    await send(.playerResponse(.failure(error)))
                 }
-                .cancellable(id: AddGameCancelId.self)
-            case .loadPlayers:
-                return .none
-            case let .playerResponse(.success(response)):
-                state.players = response.players
-                return .none
-            case .playerResponse(.failure(_)):
-                state.players = []
-                return .none
+            case let .playerResponse(result):
+                switch result {
+                case let .success(response):
+                    state.players = response.players
+                    return .none
+                case .failure:
+                    return .none
+                }
             case .submitGame:
                 let message = validateScore()
                 
                 if state.errorType != nil {
                     state.alert = AlertState {
-                        TextState("不正な値を検知")
+                        TextState("値が不正です")
                     } actions: {
                         ButtonState(role: .cancel) {
                             TextState("OK")
@@ -95,11 +101,26 @@ struct AddGameFeature: ReducerProtocol {
                         try await firebaseAPIClient.submitGame(game)
                     })
                 }
-            case .submitGameResponse(.success):
-                state.submitResult = true
+            case let .submitGameResponse(result):
+                switch result {
+                case .success:
+                    state.submitResult = true
+                    return .none
+                case .failure:
+                    state.submitResult = false
+                    return .none
+                }
+            case .optionalPlayer:
                 return .none
-            case .submitGameResponse(.failure):
-                state.submitResult = false
+            case let .setPlayerView(isPresented: isPresenter):
+                switch isPresenter {
+                case true:
+                    state.isPlayerViewPresented = true
+                    state.optionalPlayerState = PlayerFeature.State()
+                case false:
+                    state.isPlayerViewPresented = false
+                    state.optionalPlayerState = nil
+                }
                 return .none
             case let .selectDate(date):
                 state.date = date
@@ -177,6 +198,9 @@ struct AddGameFeature: ReducerProtocol {
                 }
                 return message
             }
+        }
+        .ifLet(\.optionalPlayerState, action: /Action.optionalPlayer) {
+            PlayerFeature()
         }
     }
 }
